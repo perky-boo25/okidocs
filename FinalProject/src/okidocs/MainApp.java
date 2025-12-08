@@ -1,0 +1,56 @@
+package okidocs;
+
+import java.awt.*;
+import javax.swing.*;
+
+public final class MainApp {
+
+    private JFrame frame;
+
+    public MainApp() {
+
+        frame = new JFrame("OKIDOCS");
+        frame.setSize(900, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout());
+
+        showWelcomePage();
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(MainApp::new);
+    }
+
+    // SCREEN SWITCH METHODS
+    public void showWelcomePage() {
+        frame.setContentPane(new WelcomePage(this));
+        refresh();
+    }
+
+    public void showLoginPage() {
+        frame.setContentPane(new LoginPanel(this));
+        refresh();
+    }
+
+    public void showSignUpPage() {
+        frame.setContentPane(new SignUpPanel(this));
+        refresh();
+    }
+
+    public void showHomePage() {
+        frame.setContentPane(new HomePage(this));
+        refresh();
+    }
+
+    public void showDownloadablePage() {
+        frame.setContentPane(new DownloadablePage(this));
+        refresh();
+    }
+
+    private void refresh() {
+        frame.revalidate();
+        frame.repaint();
+    }
+}
