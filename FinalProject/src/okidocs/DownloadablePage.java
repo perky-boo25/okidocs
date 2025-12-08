@@ -31,7 +31,7 @@ public class DownloadablePage extends JPanel {
 
         JButton backBtn = new JButton("Back");
         backBtn.setForeground(Color.WHITE);
-        backBtn.setBackground(new Color(110, 9, 38));
+        backBtn.setBackground(new Color(203, 156, 56));
         backBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
         backBtn.setFocusPainted(false);
         backBtn.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
