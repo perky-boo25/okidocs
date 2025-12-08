@@ -22,7 +22,7 @@ public class MaterialItemCard extends JPanel {
         titleLabel.setText(item.getTitle());
         add(titleLabel, BorderLayout.WEST);
 
-        downloadBtn.setBackground(new Color(255, 170, 0));
+        downloadBtn.setBackground(new Color(203, 156, 56));
         downloadBtn.setForeground(Color.WHITE);
         downloadBtn.setFocusPainted(false);
         downloadBtn.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
