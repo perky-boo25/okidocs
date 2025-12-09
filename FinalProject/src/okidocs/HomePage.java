@@ -49,11 +49,11 @@ public class HomePage extends JPanel {
         btn3.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn3.setMaximumSize(size);
 
-        // ⭐ ADD CONNECTORS HERE ⭐
+        // ADD CONNECTORS HERE
         btn1.addActionListener(e -> app.showDownloadablePage());
         btn2.addActionListener(e -> app.showAppointmentsPage());
-        btn3.addActionListener(e -> JOptionPane.showMessageDialog(this, "Submit Files page not yet implemented."));
-
+        btn3.addActionListener(e -> app.showSubmissionPage());
+        
         center.add(Box.createVerticalGlue());
         center.add(btn1);
         center.add(Box.createVerticalStrut(10));
