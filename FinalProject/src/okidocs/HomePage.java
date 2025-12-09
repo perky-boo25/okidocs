@@ -24,7 +24,7 @@ public class HomePage extends JPanel {
         // LOGIN BUTTON
         JButton btn1 = new JButton("Documents");
         btn1.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        btn1.setBackground(new Color(98, 0, 238));
+        btn1.setBackground(new Color(110, 9, 38));
         btn1.setForeground(Color.WHITE);
         btn1.setFocusPainted(false);
         btn1.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -33,7 +33,7 @@ public class HomePage extends JPanel {
 
         JButton btn2 = new JButton("Set Appointment");
         btn2.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        btn2.setBackground(new Color(98, 0, 238));
+        btn2.setBackground(new Color(110, 9, 38));
         btn2.setForeground(Color.WHITE);
         btn2.setFocusPainted(false);
         btn2.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -42,7 +42,7 @@ public class HomePage extends JPanel {
 
         JButton btn3 = new JButton("Submit Files");
         btn3.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        btn3.setBackground(new Color(98, 0, 238));
+        btn3.setBackground(new Color(110, 9, 38));
         btn3.setForeground(Color.WHITE);
         btn3.setFocusPainted(false);
         btn3.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
