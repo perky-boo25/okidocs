@@ -51,7 +51,7 @@ public class HomePage extends JPanel {
 
         // ⭐ ADD CONNECTORS HERE ⭐
         btn1.addActionListener(e -> app.showDownloadablePage());
-        btn2.addActionListener(e -> JOptionPane.showMessageDialog(this, "Set Appointment page not yet implemented."));
+        btn2.addActionListener(e -> app.showAppointmentsPage());
         btn3.addActionListener(e -> JOptionPane.showMessageDialog(this, "Submit Files page not yet implemented."));
 
         center.add(Box.createVerticalGlue());
