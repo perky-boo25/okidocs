@@ -18,7 +18,7 @@ public class AppointmentsPage extends JPanel {
         // HEADER
         add(createHeaderBar(app), BorderLayout.NORTH);
 
-        // CENTER PANEL 
+        // CENTER PANEL (uses BoxLayout to center everything)
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.WHITE);
@@ -102,7 +102,7 @@ public class AppointmentsPage extends JPanel {
         header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
         // Load image (simple, reliable path)
-        ImageIcon icon = new ImageIcon(getClass().getResource("/okidocs/notOkay.png"));
+        ImageIcon icon = new ImageIcon("src/okidocs/notOkay.png");
         Image scaled = icon.getImage().getScaledInstance(160, 50, Image.SCALE_SMOOTH);
         JLabel logo = new JLabel(new ImageIcon(scaled));
 
