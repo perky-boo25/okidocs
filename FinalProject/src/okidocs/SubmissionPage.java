@@ -31,7 +31,7 @@ public class SubmissionPage extends JPanel {
         docTypeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton chooseFileBtn = new JButton("Choose File");
-        chooseFileBtn.setBackground(new Color(98, 0, 238));
+        chooseFileBtn.setBackground(new Color(110, 9, 38));
         chooseFileBtn.setForeground(Color.WHITE);
         chooseFileBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -44,7 +44,7 @@ public class SubmissionPage extends JPanel {
         fileField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton submitBtn = new JButton("Oki");
-        submitBtn.setBackground(new Color(98, 0, 238));
+        submitBtn.setBackground(new Color(110, 9, 38));
         submitBtn.setForeground(Color.WHITE);
         submitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         submitBtn.setMaximumSize(new Dimension(120, 40));
