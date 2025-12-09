@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class SubmissionPage extends JPanel {
 
-    private JComboBox<String> docType;
+    private JComboBox<String> docTypeDropdown;
     private JTextField fileField;
     private File selectedFile;
 
@@ -15,93 +15,90 @@ public class SubmissionPage extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        add(createHeader(app), BorderLayout.NORTH);
-        add(createCenterPanel(), BorderLayout.CENTER);
-    }
-
-    private JPanel createHeader(MainApp app) {
-        JPanel header = new JPanel(new BorderLayout());
-        header.setBackground(new Color(255,184,28));
-        header.setBorder(BorderFactory.createEmptyBorder(10,15,10,15));
-
-        JLabel logo = new JLabel();
-        ImageIcon icon = new ImageIcon("notOkay.png");
-        Image scaled = icon.getImage().getScaledInstance(180,60,Image.SCALE_SMOOTH);
-        logo.setIcon(new ImageIcon(scaled));
-        header.add(logo, BorderLayout.WEST);
-
-        JButton back = new JButton("Back");
-        back.setBackground(new Color(110,9,38));
-        back.setForeground(Color.WHITE);
-        back.setFocusPainted(false);
-        back.addActionListener(e -> app.showHomePage());
-        header.add(back, BorderLayout.EAST);
-
-        return header;
-    }
-
-    private JPanel createCenterPanel() {
+        add(createHeaderBar(app), BorderLayout.NORTH);
 
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.WHITE);
-        center.setBorder(BorderFactory.createEmptyBorder(20,250,20,250));
+        center.setBorder(BorderFactory.createEmptyBorder(20, 250, 20, 250));
 
-        // Dropdown label
-        JLabel typeLabel = new JLabel("What type of document?");
-        typeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        docType = new JComboBox<>(new String[]{
-            "Excuse Slip",
-            "Health Examination Form",
-            "Other Hospital Records"
+        docTypeDropdown = new JComboBox<>(new String[]{
+                "Excuse Slip",
+                "Health Examination Form",
+                "Other Hospital Records"
         });
-        docType.setMaximumSize(new Dimension(400,40));
-        docType.setAlignmentX(Component.CENTER_ALIGNMENT);
+        docTypeDropdown.setMaximumSize(new Dimension(350, 40));
+        docTypeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // File chooser field
+        JButton chooseFileBtn = new JButton("Choose File");
+        chooseFileBtn.setBackground(new Color(98, 0, 238));
+        chooseFileBtn.setForeground(Color.WHITE);
+        chooseFileBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        chooseFileBtn.addActionListener(e -> openFileChooser());
+
         fileField = new JTextField();
         fileField.setEditable(false);
         fileField.setBorder(BorderFactory.createTitledBorder("Selected File"));
-        fileField.setMaximumSize(new Dimension(400,45));
+        fileField.setMaximumSize(new Dimension(350, 50));
         fileField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton chooseBtn = new JButton("Choose File");
-        chooseBtn.setBackground(new Color(98,0,238));
-        chooseBtn.setForeground(Color.WHITE);
-        chooseBtn.setFocusPainted(false);
-        chooseBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        chooseBtn.addActionListener(e -> openChooser());
+        JButton submitBtn = new JButton("Oki");
+        submitBtn.setBackground(new Color(98, 0, 238));
+        submitBtn.setForeground(Color.WHITE);
+        submitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        submitBtn.setMaximumSize(new Dimension(120, 40));
+        submitBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        JButton submit = new JButton("Oki");
-        submit.setBackground(new Color(98,0,238));
-        submit.setForeground(Color.WHITE);
-        submit.setFocusPainted(false);
-        submit.setMaximumSize(new Dimension(120,40));
-        submit.setAlignmentX(Component.CENTER_ALIGNMENT);
-        submit.addActionListener(e -> handleSubmit());
+        submitBtn.addActionListener(e -> handleSubmit());
 
-        // ADD COMPONENTS
-        center.add(typeLabel);
-        center.add(docType);
-        center.add(Box.createVerticalStrut(20));
-
-        center.add(chooseBtn);
+        center.add(Box.createVerticalGlue());
+        center.add(makeLabel("What type of document?"));
+        center.add(docTypeDropdown);
+        center.add(Box.createVerticalStrut(15));
+        center.add(chooseFileBtn);
         center.add(Box.createVerticalStrut(10));
-
         center.add(fileField);
-        center.add(Box.createVerticalStrut(30));
+        center.add(Box.createVerticalStrut(20));
+        center.add(submitBtn);
+        center.add(Box.createVerticalGlue());
 
-        center.add(submit);
-
-        return center;
+        add(center, BorderLayout.CENTER);
     }
 
-    private void openChooser() {
-        JFileChooser chooser = new JFileChooser();
-        int result = chooser.showOpenDialog(this);
+    private JPanel createHeaderBar(MainApp app) {
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(new Color(255, 184, 28));
+        header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
-        if (result == JFileChooser.APPROVE_OPTION) {
+        ImageIcon icon = new ImageIcon("src/okidocs/notOkay.png");
+        Image scaled = icon.getImage().getScaledInstance(160, 50, Image.SCALE_SMOOTH);
+        JLabel logo = new JLabel(new ImageIcon(scaled));
+
+        header.add(logo, BorderLayout.WEST);
+
+        JButton backBtn = new JButton("Back");
+        backBtn.setBackground(new Color(110, 9, 38));
+        backBtn.setForeground(Color.WHITE);
+        backBtn.addActionListener(e -> app.showHomePage());
+
+        header.add(backBtn, BorderLayout.EAST);
+
+        return header;
+    }
+
+    private JLabel makeLabel(String text) {
+        JLabel lbl = new JLabel(text);
+        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        return lbl;
+    }
+
+    private void openFileChooser() {
+        JFileChooser chooser = new JFileChooser();
+        int res = chooser.showOpenDialog(this);
+
+        if (res == JFileChooser.APPROVE_OPTION) {
             selectedFile = chooser.getSelectedFile();
             fileField.setText(selectedFile.getAbsolutePath());
         }
@@ -109,7 +106,7 @@ public class SubmissionPage extends JPanel {
 
     private void handleSubmit() {
         if (selectedFile == null) {
-            JOptionPane.showMessageDialog(this, "Please choose a file.");
+            JOptionPane.showMessageDialog(this, "Please choose a file first!");
             return;
         }
 
