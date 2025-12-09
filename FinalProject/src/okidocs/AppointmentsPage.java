@@ -1,17 +1,14 @@
 package okidocs;
 
-import javax.swing.*;
 import java.awt.*;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import javax.swing.*;
 
 public class AppointmentsPage extends JPanel {
 
-    private final JComboBox<String> appointmentType;
-    private final JTextField nameField;
-    private final JSpinner datePicker;
-    private final JSpinner timePicker;
+    private JComboBox<String> typeDropdown;
+    private JTextField nameField;
+    private JTextField dateField;
+    private JComboBox<String> timeDropdown;
 
     public AppointmentsPage(MainApp app) {
 
@@ -21,162 +18,140 @@ public class AppointmentsPage extends JPanel {
         // HEADER
         add(createHeaderBar(app), BorderLayout.NORTH);
 
-        // CENTER FORM PANEL
+        // CENTER WRAPPER (for perfect centering)
+        JPanel wrapper = new JPanel(new GridBagLayout());
+        wrapper.setBackground(Color.WHITE);
+
+        // FORM
         JPanel form = new JPanel();
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
-        form.setBorder(BorderFactory.createEmptyBorder(30, 200, 30, 200));
         form.setBackground(Color.WHITE);
 
-        // 1) APPOINTMENT TYPE DROPDOWN
-        appointmentType = new JComboBox<>(new String[]{
-                "General Check-up",
-                "Dental Check-up"
-        });
-        styleComponent(appointmentType);
+        // FORCE CENTER ALIGNMENT FOR ALL COMPONENTS
+        form.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // 2) NAME FIELD
+        Dimension fieldSize = new Dimension(350, 40);
+
+        // APPOINTMENT TYPE
+        JLabel lblType = makeLabel("Appointment Type:");
+        lblType.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        typeDropdown = new JComboBox<>(new String[]{
+            "General Check-up",
+            "Dental Check-up"
+        });
+        typeDropdown.setMaximumSize(fieldSize);
+        typeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // NAME FIELD
         nameField = new JTextField();
         nameField.setBorder(BorderFactory.createTitledBorder("Name"));
-        nameField.setMaximumSize(new Dimension(400, 50));
+        nameField.setMaximumSize(fieldSize);
+        nameField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // 3) DATE PICKER
-        SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH);
-        datePicker = new JSpinner(dateModel);
-        datePicker.setEditor(new JSpinner.DateEditor(datePicker, "yyyy-MM-dd"));
-        datePicker.setMaximumSize(new Dimension(400, 50));
+        // DATE FIELD
+        dateField = new JTextField();
+        dateField.setBorder(BorderFactory.createTitledBorder("Date (YYYY-MM-DD)"));
+        dateField.setMaximumSize(fieldSize);
+        dateField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel dateLabel = new JLabel("Date:");
-        dateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        // TIME DROPDOWN (30-min intervals)
+        timeDropdown = new JComboBox<>(new String[]{
+            "08:00 AM", "08:30 AM",
+            "09:00 AM", "09:30 AM",
+            "10:00 AM", "10:30 AM",
+            "11:00 AM",
+            // lunch break (not allowed but left visible)
+            "01:00 PM", "01:30 PM",
+            "02:00 PM", "02:30 PM",
+            "03:00 PM", "03:30 PM",
+            "04:00 PM", "04:30 PM"
+        });
+        timeDropdown.setMaximumSize(fieldSize);
+        timeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // 4) TIME PICKER (30 minutes interval)
-        SpinnerDateModel timeModel = new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE);
-        timePicker = new JSpinner(timeModel);
-        timePicker.setEditor(new JSpinner.DateEditor(timePicker, "hh:mm a"));
-        timePicker.setMaximumSize(new Dimension(400, 50));
-
-        JLabel timeLabel = new JLabel("Time:");
-        timeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
-        // 5) NOTE LABEL
+        // NOTE LABEL
         JLabel note = new JLabel("HSU has lunch break at 11:30 AM to 1:00 PM");
         note.setForeground(Color.RED);
-        note.setAlignmentX(Component.LEFT_ALIGNMENT);
+        note.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // 6) SUBMIT BUTTON
+        // SUBMIT BUTTON
         JButton submit = new JButton("Oki");
-        submit.setFont(new Font("Segoe UI", Font.BOLD, 18));
         submit.setBackground(new Color(98, 0, 238));
         submit.setForeground(Color.WHITE);
-        submit.setFocusPainted(false);
-        submit.setMaximumSize(new Dimension(150, 45));
-        submit.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+        submit.setMaximumSize(new Dimension(120, 40));
+        submit.setAlignmentX(Component.CENTER_ALIGNMENT);
         submit.addActionListener(e -> handleSubmit());
 
         // ADD COMPONENTS TO FORM
-        form.add(label("Appointment Type:"));
-        form.add(appointmentType);
+        form.add(lblType);
+        form.add(typeDropdown);
         form.add(Box.createVerticalStrut(15));
 
         form.add(nameField);
         form.add(Box.createVerticalStrut(15));
 
-        form.add(dateLabel);
-        form.add(datePicker);
+        form.add(dateField);
         form.add(Box.createVerticalStrut(15));
 
-        form.add(timeLabel);
-        form.add(timePicker);
+        form.add(timeDropdown);
         form.add(Box.createVerticalStrut(15));
 
         form.add(note);
-        form.add(Box.createVerticalStrut(30));
+        form.add(Box.createVerticalStrut(20));
 
         form.add(submit);
 
-        add(form, BorderLayout.CENTER);
+        // ADD FORM TO CENTER WRAPPER
+        wrapper.add(form);
+
+        add(wrapper, BorderLayout.CENTER);
     }
 
+    // HEADER BAR
     private JPanel createHeaderBar(MainApp app) {
-
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(new Color(255, 184, 28));
         header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
-        // LOGO
-        JLabel logo = new JLabel();
-        ImageIcon icon = new ImageIcon("notOkay.png");   // your image
-        Image scaled = icon.getImage().getScaledInstance(180, 60, Image.SCALE_SMOOTH);
-        logo.setIcon(new ImageIcon(scaled));
-
+        JLabel logo = new JLabel(new ImageIcon("notOkay.png"));
         header.add(logo, BorderLayout.WEST);
 
-        // BACK BUTTON
-        JButton backBtn = new JButton("Back");
-        backBtn.setForeground(Color.WHITE);
-        backBtn.setBackground(new Color(110, 9, 38));
-        backBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        backBtn.setFocusPainted(false);
-        backBtn.setBorder(BorderFactory.createEmptyBorder(6, 12, 6, 12));
-        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        backBtn.addActionListener(e -> app.showHomePage());
-        header.add(backBtn, BorderLayout.EAST);
+        JButton back = new JButton("Back");
+        back.setBackground(new Color(110, 9, 38));
+        back.setForeground(Color.WHITE);
+        back.addActionListener(e -> app.showHomePage());
+        header.add(back, BorderLayout.EAST);
 
         return header;
     }
 
-    // LABEL HELPER
-    private JLabel label(String text) {
-        JLabel lbl = new JLabel(text);
-        lbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        return lbl;
+    private JLabel makeLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        return label;
     }
 
-    // STYLE HELPER
-    private void styleComponent(JComponent c) {
-        c.setMaximumSize(new Dimension(400, 50));
-        c.setAlignmentX(Component.LEFT_ALIGNMENT);
-    }
-
-    // ⭐ BACKEND HOOK FOR FUTURE DATABASE CONNECTION ⭐
-    private boolean isAppointmentAvailable(Date datetime) {
-        // TODO: check DB here
-
-        // TEMPORARY SIMULATION:
-        // For example, disallow 12 PM timeslot
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String time = sdf.format(datetime);
-
-        return !time.equals("12:00");  // fake unavailable time
+    // EMPTY BACKEND METHOD FOR FUTURE CODERS
+    private boolean isAvailable(String date, String time) {
+        // TODO: Add MySQL logic here
+        return true; // temporary placeholder
     }
 
     private void handleSubmit() {
+        String name = nameField.getText().trim();
+        String date = dateField.getText().trim();
+        String time = (String) timeDropdown.getSelectedItem();
 
-        String appt = (String) appointmentType.getSelectedItem();
-        String name = nameField.getText();
+        if (name.isEmpty() || date.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill out all fields!");
+            return;
+        }
 
-        Date date = (Date) datePicker.getValue();
-        Date time = (Date) timePicker.getValue();
-
-        // COMBINE DATE + TIME
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-
-        Calendar t = Calendar.getInstance();
-        t.setTime(time);
-
-        c.set(Calendar.HOUR_OF_DAY, t.get(Calendar.HOUR_OF_DAY));
-        c.set(Calendar.MINUTE, t.get(Calendar.MINUTE));
-
-        Date finalDateTime = c.getTime();
-
-        // CHECK AVAILABILITY
-        if (isAppointmentAvailable(finalDateTime)) {
+        if (isAvailable(date, time)) {
             JOptionPane.showMessageDialog(this, "Appointment set!");
         } else {
-            JOptionPane.showMessageDialog(this, "Time in specific date is not available");
+            JOptionPane.showMessageDialog(this, "Time not available.");
         }
     }
 }
