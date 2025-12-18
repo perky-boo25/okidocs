@@ -49,6 +49,16 @@ public final class MainApp {
         refresh();
     }
 
+    public void showAppointmentsPage() {
+        frame.setContentPane(new AppointmentsPage(this));
+        refresh();
+    }
+
+    public void showSubmissionPage() {
+        frame.setContentPane(new SubmissionPage(this));
+        refresh();
+    }
+
     private void refresh() {
         frame.revalidate();
         frame.repaint();
