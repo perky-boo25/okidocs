@@ -49,6 +49,15 @@ public class HomePage extends JPanel {
         btn3.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn3.setMaximumSize(size);
 
+        JButton btn4 = new JButton("Submit Files");
+        btn4.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        btn4.setBackground(new Color(110, 9, 38));
+        btn4.setForeground(Color.WHITE);
+        btn4.setFocusPainted(false);
+        btn4.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        btn4.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btn4.setMaximumSize(size);
+
         // ADD CONNECTORS HERE
         btn1.addActionListener(e -> app.showDownloadablePage());
         btn2.addActionListener(e -> app.showAppointmentsPage());
@@ -60,6 +69,8 @@ public class HomePage extends JPanel {
         center.add(btn2);
         center.add(Box.createVerticalStrut(10));
         center.add(btn3);
+        center.add(Box.createVerticalStrut(10));
+        center.add(btn4);
         center.add(Box.createVerticalGlue());
 
         main.add(center);
