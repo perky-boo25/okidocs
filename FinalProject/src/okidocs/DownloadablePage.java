@@ -31,19 +31,20 @@ public class DownloadablePage extends AbstractPage {
     // ───────────── SCROLLABLE AREA ─────────────
     private JScrollPane createScrollArea() {
 
-        // vertical list layout
-        containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
-        containerPanel.setBackground(Color.WHITE);
+    // RESET container to avoid stale state
+    containerPanel.removeAll();
+    containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
+    containerPanel.setBackground(Color.WHITE);
 
-        // populate cards
-        loadCards();
+    loadCards();
 
-        JScrollPane scrollPane = new JScrollPane(containerPanel);
-        scrollPane.setBorder(null);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(15);
+    JScrollPane scrollPane = new JScrollPane(containerPanel);
+    scrollPane.setBorder(null);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(15);
 
-        return scrollPane;
-    }
+    return scrollPane;
+}
+
 
     // ───────────── LOAD DOCUMENT CARDS ─────────────
     private void loadCards() {
