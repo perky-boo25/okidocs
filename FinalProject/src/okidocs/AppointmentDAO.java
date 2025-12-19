@@ -10,7 +10,7 @@ public class AppointmentDAO {
         String sql = """
             INSERT INTO appointments
             (student_id, appointment_date, appointment_time)
-            VALUES (?, ?, ?,)
+            VALUES (?, ?, ?)
         """;
 
         try (Connection c = Database.getConnection();
