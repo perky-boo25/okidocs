@@ -9,7 +9,7 @@ public class TestDBConnection {
             Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/okidocs",
                 "root",
-                "mySQLpassword123"
+                ""
             );
             System.out.println("CONNECTED TO MYSQL");
             conn.close();
