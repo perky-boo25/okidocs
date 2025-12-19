@@ -15,14 +15,6 @@ public class ViewResults {
             return;
         }
 
-        if (!TestResultDAO.hasResults(studentId)) {
-            JOptionPane.showMessageDialog(
-                    parent,
-                    "No test results available yet."
-            );
-            return;
-        }
-
         StudentInfo info = StudentInfoDAO.getStudentInfo(studentId);
 
         if (info == null) {
