@@ -4,9 +4,9 @@ import java.sql.Date;
 
 public class Appointment {
     private int appointmentId;
-    private int studentId;
-    private Date date;
-    private String timeSlot;
+    private final int studentId;
+    private final Date date;
+    private final String timeSlot;
     private String status;
 
     public Appointment(int studentId, Date date, String timeSlot) {
