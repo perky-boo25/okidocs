@@ -121,8 +121,6 @@ public class SubmissionPage extends JPanel {
         return; 
     }
 
-    String docType = (String) docTypeDropdown.getSelectedItem();
-
     //Prepare data
     String filePath = selectedFile.getAbsolutePath();
 
