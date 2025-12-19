@@ -159,7 +159,7 @@ public class AppointmentsPage extends JPanel {
             JOptionPane.showMessageDialog(this, "Time slot already taken.");
         }
 
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
         JOptionPane.showMessageDialog(this, "Invalid date format.");
     }
 }

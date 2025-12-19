@@ -5,12 +5,12 @@ import java.sql.*;
 public class AppointmentDAO {
 
     public static boolean bookAppointment(
-            int studentId, Date date, String timeSlot) {
+            int studentId, Date date, Time time) {
 
         String sql = """
             INSERT INTO appointments
-            (student_id, date, time_slot, status)
-            VALUES (?, ?, ?, 'BOOKED')
+            (student_id, appointment_date, appointment_time)
+            VALUES (?, ?, ?,)
         """;
 
         try (Connection c = Database.getConnection();
@@ -18,12 +18,12 @@ public class AppointmentDAO {
 
             ps.setInt(1, studentId);
             ps.setDate(2, date);
-            ps.setString(3, timeSlot);
+            ps.setTime(3, time);
 
             ps.executeUpdate();
             return true;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return false;
         }
     }
