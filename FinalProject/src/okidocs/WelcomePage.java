@@ -15,7 +15,7 @@ public class WelcomePage extends JPanel {
         main.setBackground(Color.WHITE);
 
         //TOP: Image + text
-        ImageIcon img = new ImageIcon("title.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/okidocs/title.png"));
 
         JLabel imgLabel = new JLabel("by print(\"hello world!\")", img, JLabel.CENTER);
         imgLabel.setVerticalTextPosition(JLabel.BOTTOM);
