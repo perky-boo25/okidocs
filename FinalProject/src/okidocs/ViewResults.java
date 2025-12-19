@@ -32,6 +32,11 @@ public class ViewResults {
 
         List<MedicalResult> results = TestResultDAO.getResults(studentId);
 
+        //FALLBACK TO FAKE DATA IF DB IS EMPTY
+        if(results.isEmpty()) {
+            results = FakeMedicalResults.getResults();
+        }
+
         JTextArea area = new JTextArea();
         area.setEditable(false);
 

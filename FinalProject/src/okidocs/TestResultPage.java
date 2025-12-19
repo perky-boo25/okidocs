@@ -21,7 +21,7 @@ public class TestResultPage extends JPanel {
         JButton viewBtn = new JButton("View Test Results");
 
         requestBtn.addActionListener(e -> RequestTestResult.request(this));
-        viewBtn.addActionListener(e -> ViewResults.view(this));
+        viewBtn.addActionListener(e -> ViewResults.show(this));
 
         styleBtn(requestBtn);
         styleBtn(viewBtn);
