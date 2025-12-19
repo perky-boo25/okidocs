@@ -6,7 +6,7 @@ import javax.swing.*;
 public final class MainApp {
 
     //main application frame
-    private JFrame frame;
+    private final JFrame frame;
 
     public MainApp() {
 
