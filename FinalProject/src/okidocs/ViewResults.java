@@ -3,6 +3,7 @@ package okidocs;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ViewResults {
 
@@ -29,23 +30,54 @@ public class ViewResults {
             results = FakeMedicalResults.getResults();
         }
 
-        JTextArea area = new JTextArea();
-        area.setEditable(false);
+        JPanel container = new JPanel(new BorderLayout(10,10));
+        JTextArea header = new JTextArea(
+            "Name: " + info.getName() + "\n" +
+            "Student ID: " + info.getStudentId() + 
+            "\nDate Released: " + info.getDateReleased()
+        );
 
-        area.append("Name: " + info.getName() + "\n");
-        area.append("Student ID: " + info.getStudentId() + "\n");
-        area.append("Date Released: " + info.getDateReleased() + "\n\n");
+        header.setEditable(false);
+        header.setBackground(container.getBackground());
+        header.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        header.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        container.add(header, BorderLayout.NORTH);
+
+        String[] columns = {"Test Name", "Category", "Result", "Normal Range", "Remarks", "Doctor Remark", "Date Released"};
+
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // READ-ONLY TABLE
+            }
+        };
 
         for (MedicalResult r : results) {
-            area.append(r.toString() + "\n\n");
+            model.addRow(new Object[]{
+                    r.getTestName(),
+                    r.getCategory(),
+                    r.getResultValue(),
+                    r.getNormalRange(),
+                    r.getRemarks(),
+                    r.getDoctorRemark(),
+                    r.getDateReleased()
+            });
         }
 
-        JScrollPane scroll = new JScrollPane(area);
-        scroll.setPreferredSize(new Dimension(700, 500));
+        JTable table = new JTable(model);
+        table.setRowHeight(24);
+        table.setAutoCreateRowSorter(true);
+        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+
+        JScrollPane tableScroll = new JScrollPane(table);
+        tableScroll.setPreferredSize(new Dimension(750, 350));
+
+        container.add(tableScroll, BorderLayout.CENTER);
 
         JOptionPane.showMessageDialog(
                 parent,
-                scroll,
+                container,
                 "Medical Test Results",
                 JOptionPane.INFORMATION_MESSAGE
         );

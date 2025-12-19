@@ -30,15 +30,33 @@ public class MedicalResult {
         this.doctorRemark = doctorRemark;
     }
 
-    @Override
-    public String toString() {
-        return "Test: " + testName +
-               "\nCategory: " + category +
-               "\nResult: " + resultValue +
-               "\nNormal Range: " + normalRange +
-               "\nRemarks: " + remarks +
-               "\nDoctor: " + doctorRemark +
-               "\nDate Released: " + dateReleased +
-               "\n------------------------";
+    public String getTestName() {
+        return testName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getResultValue() {
+        return resultValue;
+    }
+
+    public String getNormalRange() {
+        return normalRange;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public Date getDateReleased() {
+        return dateReleased;
+    }
+
+    public String getDoctorRemark() {
+        return doctorRemark;
     }
 }
+
+//Getters

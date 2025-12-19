@@ -37,7 +37,7 @@ public class AppointmentsPage extends JPanel {
         studentIdField.setBorder(BorderFactory.createTitledBorder("Student ID"));
         studentIdField.setMaximumSize(new Dimension(300, 50));
         studentIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        studentIdField.setEditable(false);
+        studentIdField.setEditable(true);
 
         // Date spinner
         dateSpinner = new JSpinner(new SpinnerDateModel(
