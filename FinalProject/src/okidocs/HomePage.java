@@ -69,6 +69,8 @@ public class HomePage extends JPanel {
         center.add(btn2);
         center.add(Box.createVerticalStrut(10));
         center.add(btn3);
+        center.add(Box.createVerticalStrut(10));
+        center.add(btn4);
         center.add(Box.createVerticalGlue());
 
         main.add(center);
