@@ -24,7 +24,7 @@ public class HomePage extends JPanel {
         // LOGO
         JPanel top = new JPanel(new BorderLayout());
         top.setBackground(Color.WHITE);
-        ImageIcon img = new ImageIcon("title.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/okidocs/title.png"));
         Image logo = img.getImage().getScaledInstance(300, 150, Image.SCALE_SMOOTH);
         
         ImageIcon resized = new ImageIcon(logo);
