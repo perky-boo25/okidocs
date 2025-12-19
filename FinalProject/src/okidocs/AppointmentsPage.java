@@ -18,7 +18,7 @@ public class AppointmentsPage extends JPanel {
         // HEADER
         add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
 
-        // CENTER PANEL (uses BoxLayout to center everything)
+        // CENTER PANEL
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.WHITE);
@@ -32,30 +32,27 @@ public class AppointmentsPage extends JPanel {
         typeDropdown.setMaximumSize(new Dimension(300, 40));
         typeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Name field
+        // Student ID field (display only – login is via Session)
         studentIdField = new JTextField();
-        studentIdField .setBorder(BorderFactory.createTitledBorder("Student ID: "));
-        studentIdField .setMaximumSize(new Dimension(300, 50));
-        studentIdField .setAlignmentX(Component.CENTER_ALIGNMENT);
+        studentIdField.setBorder(BorderFactory.createTitledBorder("Student ID"));
+        studentIdField.setMaximumSize(new Dimension(300, 50));
+        studentIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        studentIdField.setEditable(false);
 
-        // Date (dd-MM-yyyy)
-        dateSpinner = new JSpinner(
-            new SpinnerDateModel(
-                new java.util.Date(),   // today
-                null,             // min
-                null,               // max
-                java.util.Calendar.DAY_OF_MONTH // makes it just 1 -31
-                ));
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "dd-MM-yyyy");
+        // Date spinner
+        dateSpinner = new JSpinner(new SpinnerDateModel(
+                new java.util.Date(),
+                null,
+                null,
+                java.util.Calendar.DAY_OF_MONTH
+        ));
+
+        JSpinner.DateEditor editor =
+                new JSpinner.DateEditor(dateSpinner, "dd-MM-yyyy");
         dateSpinner.setEditor(editor);
 
-        JFormattedTextField tf = ((JSpinner.DefaultEditor) dateSpinner.getEditor()).getTextField();
-        tf.setCaretPosition(0);
-        
         dateSpinner.setMaximumSize(new Dimension(300, 40));
         dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-
 
         // Time dropdown
         timeDropdown = new JComboBox<>(new String[]{
@@ -86,7 +83,7 @@ public class AppointmentsPage extends JPanel {
 
         submit.addActionListener(e -> handleSubmit());
 
-        // Add components centered
+        // Add components
         center.add(Box.createVerticalGlue());
         center.add(makeLabel("Appointment Type:"));
         center.add(typeDropdown);
@@ -116,56 +113,55 @@ public class AppointmentsPage extends JPanel {
 
     private void handleSubmit() {
 
-        java.util.Date selectedDate = (java.util.Date) dateSpinner.getValue();
-        String timeText = (String) timeDropdown.getSelectedItem();
-
         int studentId = Session.getStudentId();
 
-        if(studentId == -1){
+        if (studentId == -1) {
             JOptionPane.showMessageDialog(this, "Please login first.");
             return;
         }
 
-        try {
-            //Convert to SQL Date and Time
-            java.sql.Date date = new java.sql.Date(selectedDate.getTime());
-            java.sql.Time time = java.sql.Time.valueOf(convertTime(timeText));
-            
+        java.util.Date selectedDate = (java.util.Date) dateSpinner.getValue();
+        String timeText = (String) timeDropdown.getSelectedItem();
 
-            boolean booked = AppointmentDAO.bookAppointment(
-                studentId, date, time
-        );
+        java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
+        String timeSlot = convertTime(timeText);
 
-        if (booked) {
-            JOptionPane.showMessageDialog(this, "Appointment booked!");
-        } else {
+        // Check slot first
+        if (AppointmentDAO.isSlotTaken(sqlDate, timeSlot)) {
             JOptionPane.showMessageDialog(this, "Time slot already taken.");
+            return;
         }
 
-    } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(this, "Invalid date format.");
+        boolean booked = AppointmentDAO.bookAppointment(
+                studentId,
+                sqlDate,
+                timeSlot
+        );
+
+        JOptionPane.showMessageDialog(
+                this,
+                booked ? "Appointment booked!" : "Booking failed."
+        );
     }
-}
 
     private String convertTime(String time) {
-    return switch (time) {
-        case "08:00 AM" -> "08:00:00";
-        case "08:30 AM" -> "08:30:00";
-        case "09:00 AM" -> "09:00:00";
-        case "09:30 AM" -> "09:30:00";
-        case "10:00 AM" -> "10:00:00";
-        case "10:30 AM" -> "10:30:00";
-        case "11:00 AM" -> "11:00:00";
-        case "01:00 PM" -> "13:00:00";
-        case "01:30 PM" -> "13:30:00";
-        case "02:00 PM" -> "14:00:00";
-        case "02:30 PM" -> "14:30:00";
-        case "03:00 PM" -> "15:00:00";
-        case "03:30 PM" -> "15:30:00";
-        case "04:00 PM" -> "16:00:00";
-        case "04:30 PM" -> "16:30:00";
-        default -> "08:00:00";
-    };
-}
-
+        return switch (time) {
+            case "08:00 AM" -> "08:00";
+            case "08:30 AM" -> "08:30";
+            case "09:00 AM" -> "09:00";
+            case "09:30 AM" -> "09:30";
+            case "10:00 AM" -> "10:00";
+            case "10:30 AM" -> "10:30";
+            case "11:00 AM" -> "11:00";
+            case "01:00 PM" -> "13:00";
+            case "01:30 PM" -> "13:30";
+            case "02:00 PM" -> "14:00";
+            case "02:30 PM" -> "14:30";
+            case "03:00 PM" -> "15:00";
+            case "03:30 PM" -> "15:30";
+            case "04:00 PM" -> "16:00";
+            case "04:30 PM" -> "16:30";
+            default -> "08:00";
+        };
+    }
 }
