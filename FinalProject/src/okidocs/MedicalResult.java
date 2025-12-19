@@ -1,45 +1,44 @@
 package okidocs;
 
-/**
- * Represents a single medical test result.
- * Used by ViewResults, TestResultDAO, and FakeMedicalResults.
- */
+import java.sql.Date;
+
 public class MedicalResult {
 
-    private final String testName;
-    private final String resultValue;
-    private final String normalRange;
-    private final String remarks;
+    private String testName;
+    private String category;
+    private String resultValue;
+    private String normalRange;
+    private String remarks;
+    private Date dateReleased;
+    private String doctorRemark;
 
-    public MedicalResult(String testName,
-                         String resultValue,
-                         String normalRange,
-                         String remarks) {
+    public MedicalResult(
+            String testName,
+            String category,
+            String resultValue,
+            String normalRange,
+            String remarks,
+            Date dateReleased,
+            String doctorRemark) {
+
         this.testName = testName;
+        this.category = category;
         this.resultValue = resultValue;
         this.normalRange = normalRange;
         this.remarks = remarks;
-    }
-
-    public String getTestName() {
-        return testName;
-    }
-
-    public String getResultValue() {
-        return resultValue;
-    }
-
-    public String getNormalRange() {
-        return normalRange;
-    }
-
-    public String getRemarks() {
-        return remarks;
+        this.dateReleased = dateReleased;
+        this.doctorRemark = doctorRemark;
     }
 
     @Override
     public String toString() {
-        return testName + ": " + resultValue +
-               " (Normal: " + normalRange + ") - " + remarks;
+        return "Test: " + testName +
+               "\nCategory: " + category +
+               "\nResult: " + resultValue +
+               "\nNormal Range: " + normalRange +
+               "\nRemarks: " + remarks +
+               "\nDoctor: " + doctorRemark +
+               "\nDate Released: " + dateReleased +
+               "\n------------------------";
     }
 }
