@@ -17,9 +17,9 @@ public class ViewResults {
 
         StudentInfo info = StudentInfoDAO.getStudentInfo(studentId);
 
+        //FALLBACK: FAKE STUDENT
         if (info == null) {
-            JOptionPane.showMessageDialog(parent, "Student information not found.");
-            return;
+            info = FakeStudentInfo.get(studentId);
         }
 
         List<MedicalResult> results = TestResultDAO.getResults(studentId);
