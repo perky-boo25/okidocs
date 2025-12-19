@@ -20,8 +20,9 @@ public class ExcuseSlipDAO {
              PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setInt(1, studentId);
-            ps.setDate(2, absentDate);
-            ps.setString(3, pdfPath);
+            ps.setDate(2, date);
+            ps.setString(3, docType);
+            ps.setString(4, pdfPath);
 
             ps.executeUpdate();
             return true;
