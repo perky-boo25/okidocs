@@ -21,6 +21,18 @@ public class HomePage extends JPanel {
 
         Dimension size = new Dimension(200, 45);
 
+        // LOGO
+        JPanel top = new JPanel(new BorderLayout());
+        top.setBackground(Color.WHITE);
+        ImageIcon img = new ImageIcon("title.png");
+        Image logo = img.getImage().getScaledInstance(300, 150, Image.SCALE_SMOOTH);
+        
+        ImageIcon resized = new ImageIcon(logo);
+        JLabel imgLabel = new JLabel(resized);
+        imgLabel.setBorder(BorderFactory.createEmptyBorder(50, 15, 5, 5));
+        
+        top.add(imgLabel, BorderLayout.CENTER);
+
         // LOGIN BUTTON
         JButton btn1 = new JButton("Documents");
         btn1.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -77,3 +89,4 @@ public class HomePage extends JPanel {
         add(main);
     }
 }
+
