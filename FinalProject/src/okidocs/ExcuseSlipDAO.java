@@ -4,16 +4,13 @@ import java.sql.*;
 
 public class ExcuseSlipDAO {
 
-    public static boolean submitSlip(
-            int studentId,
-            Date date,
-            String docType,
-            String pdfPath) {
+    public static boolean submit(int studentId, Date date,
+                                 String type, String path) {
 
         String sql = """
             INSERT INTO excuse_slips
-            (student_id, date_absent, status, pdf_path)
-            VALUES (?, ?, 'PENDING', ?)
+            (student_id, date_absent, doc_type, pdf_path)
+            VALUES (?, ?, ?, ?)
         """;
 
         try (Connection c = Database.getConnection();
@@ -21,9 +18,8 @@ public class ExcuseSlipDAO {
 
             ps.setInt(1, studentId);
             ps.setDate(2, date);
-            ps.setString(3, docType);
-            ps.setString(4, pdfPath);
-
+            ps.setString(3, type);
+            ps.setString(4, path);
             ps.executeUpdate();
             return true;
 
