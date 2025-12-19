@@ -1,16 +1,7 @@
-package okidocs.app;
+package okidocs;
 
 import java.awt.*;
 import javax.swing.*;
-
-import okidocs.AppointmentsPage;
-import okidocs.DownloadablePage;
-import okidocs.HomePage;
-import okidocs.LoginPanel;
-import okidocs.SignUpPanel;
-import okidocs.SubmissionPage;
-import okidocs.TestResultPage;
-import okidocs.WelcomePage;
 
 public final class MainApp {
 

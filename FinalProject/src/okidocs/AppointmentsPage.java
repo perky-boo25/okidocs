@@ -3,8 +3,6 @@ package okidocs;
 import java.awt.*;
 import javax.swing.*;
 
-import okidocs.app.MainApp;
-
 public class AppointmentsPage extends JPanel {
 
     private final JComboBox<String> typeDropdown;

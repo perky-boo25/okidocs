@@ -4,7 +4,6 @@ import java.awt.*;
 import java.net.URI;
 import java.util.ArrayList;
 import javax.swing.*;
-import okidocs.app.MainApp;
 
 public class DownloadablePage extends JPanel {
 

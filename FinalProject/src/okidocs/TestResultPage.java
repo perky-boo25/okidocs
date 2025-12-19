@@ -3,8 +3,6 @@ package okidocs;
 import java.awt.*;
 import javax.swing.*;
 
-import okidocs.app.MainApp;
-
 public class TestResultPage extends JPanel {
 
     public TestResultPage(MainApp app) {

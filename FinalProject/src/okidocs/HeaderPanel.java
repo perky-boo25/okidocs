@@ -2,7 +2,6 @@ package okidocs;
 
 import java.awt.*;
 import javax.swing.*;
-import okidocs.app.MainApp;
 
 public class HeaderPanel extends JPanel {
 
