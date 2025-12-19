@@ -107,7 +107,7 @@ public class SubmissionPage extends JPanel {
     private void handleSubmit() {
 
     if (selectedFile == null) {
-        JOptionPane.showMessageDialog(this, "Please choose a file first!");
+        JOptionPane.showMessageDialog(this, "Please choose a file first.");
         return;
     }
 
@@ -132,5 +132,5 @@ public class SubmissionPage extends JPanel {
     } else {
         JOptionPane.showMessageDialog(this, "Submission failed.");
     }
-
+}
 }

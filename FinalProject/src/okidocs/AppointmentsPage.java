@@ -128,16 +128,54 @@ public class AppointmentsPage extends JPanel {
 
     private void handleSubmit() {
 
-        String type = (String) typeDropdown.getSelectedItem();
-        String name = nameField.getText().trim();
-        String date = dateField.getText().trim();
-        String time = (String) timeDropdown.getSelectedItem();
+    String dateText = dateField.getText().trim();
+    String timeText = (String) timeDropdown.getSelectedItem();
 
-        if (name.isEmpty() || date.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill out all fields.");
-            return;
+    if (dateText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill out all fields.");
+        return;
+    }
+
+    try {
+        java.sql.Date date = java.sql.Date.valueOf(dateText);
+        java.sql.Time time = java.sql.Time.valueOf(convertTime(timeText));
+
+        String studentNum = "2023-00001"; // temp
+
+        boolean booked = AppointmentDAO.bookAppointment(
+                studentNum, date, time
+        );
+
+        if (booked) {
+            JOptionPane.showMessageDialog(this, "Appointment booked!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Time slot already taken.");
         }
 
-        JOptionPane.showMessageDialog(this, "Appointment set!");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Invalid date format.");
     }
+}
+
+    private String convertTime(String time) {
+    return switch (time) {
+        case "08:00 AM" -> "08:00:00";
+        case "08:30 AM" -> "08:30:00";
+        case "09:00 AM" -> "09:00:00";
+        case "09:30 AM" -> "09:30:00";
+        case "10:00 AM" -> "10:00:00";
+        case "10:30 AM" -> "10:30:00";
+        case "11:00 AM" -> "11:00:00";
+        case "01:00 PM" -> "13:00:00";
+        case "01:30 PM" -> "13:30:00";
+        case "02:00 PM" -> "14:00:00";
+        case "02:30 PM" -> "14:30:00";
+        case "03:00 PM" -> "15:00:00";
+        case "03:30 PM" -> "15:30:00";
+        case "04:00 PM" -> "16:00:00";
+        case "04:30 PM" -> "16:30:00";
+        default -> "08:00:00";
+    };
+}
+
 }
