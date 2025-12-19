@@ -31,21 +31,38 @@ public class LoginPanel extends JPanel {
          //  LOGIN BUTTON LOGIC 
         loginBtn.addActionListener(e -> {
 
-            String studentNum = studentNumField.getText();
+            String studentNum = studentNumField.getText().trim();
             String password = new String(passwordField.getPassword());
 
-            // CALL THE EMPTY BACKEND FUNCTION
-            if (validateLogin(studentNum, password)) {
-                app.showHomePage(); // go to homepage
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Invalid login.\n(This message will be replaced once database is added)",
-                        "Login Failed",
-                        JOptionPane.ERROR_MESSAGE
-                );
+            if (studentNum.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter all fields.");
+                return;
             }
-        });
+
+            int studentId;
+            try {
+                studentId = Integer.parseInt(studentNum);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Student number must be numeric.");
+                return;
+            }
+
+            if (StudentDAO.validateLogin(studentId, password)) {
+
+                // 🔐 SAVE SESSION
+                Session.setStudentId(studentId);
+
+                JOptionPane.showMessageDialog(this, "Login successful!");
+                app.showHomePage();
+
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Invalid student number or password.",
+                    "Login Failed",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    });
+
 
         goToSignup.addActionListener(e -> app.showSignUpPage());
 
@@ -63,29 +80,6 @@ public class LoginPanel extends JPanel {
 
         add(centerPanel, BorderLayout.CENTER);
     }
-
-    // ➤ BACKEND HOOK #1 — LOGIN VALIDATION (TEMP)
-    private boolean validateLogin(String studentIdText, String password) {
-
-        // TEMP student data
-        StudentInfo student = new StudentInfo(
-            "John Doe",
-            202512345,
-            java.sql.Date.valueOf("2025-09-01"),
-            java.sql.Date.valueOf("2025-09-10")
-        );
-
-        // TEMP validation
-        if (studentIdText.equals(String.valueOf(student.getStudentId())) && password.equals("pass")) {
-
-            // SAVE logged-in student ID to session
-            Session.setStudentId(student.getStudentId());
-            return true;
-        }
-
-        return false;
-    }
-
 
     private JTextField createInputField(String title) {
         JTextField field = new JTextField();
