@@ -76,6 +76,8 @@ public class SubmissionPage extends JPanel {
 
     private void openFileChooser() {
         JFileChooser chooser = new JFileChooser();
+
+        chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF Files", "pdf"));
         int res = chooser.showOpenDialog(this);
 
         if (res == JFileChooser.APPROVE_OPTION) {
