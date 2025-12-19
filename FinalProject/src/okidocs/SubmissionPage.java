@@ -111,19 +111,19 @@ public class SubmissionPage extends JPanel {
         return;
     }
 
+    int studentId = Session.getStudentId();
+   
+    if (studentId == -1){
+        JOptionPane.showMessageDialog(this, "Please login first.");
+        return;
+    }
+
     String docType = (String) docTypeDropdown.getSelectedItem();
     String fileName = selectedFile.getName();
     String filePath = selectedFile.getAbsolutePath();
 
-    // TEMP: replace later with logged-in student
-    String studentNum = "2023-00001";
-
-    boolean success = SubmissionDAO.submitFile(
-            studentNum,
-            fileName,
-            filePath,
-            docType
-    );
+    boolean success
+    
 
     if (success) {
         JOptionPane.showMessageDialog(this, "File submitted successfully!");
