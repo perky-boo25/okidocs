@@ -5,6 +5,8 @@ import javax.swing.*;
 public class RequestTestResult {
     
     public static void request(JPanel parent){
+
+        add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
         
         int studentId = Session.getStudentId();
 
