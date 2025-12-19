@@ -3,36 +3,41 @@ package okidocs;
 import java.awt.*;
 import javax.swing.*;
 
-public class TestResultPage extends JPanel {
+public class TestResultPage extends AbstractPage {
 
+    // ───────────── CONSTRUCTOR ─────────────
     public TestResultPage(MainApp app) {
+        super(app); // inherit layout + header from AbstractPage
+    }
 
-        setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
-
-        add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
+    // ───────────── CENTER CONTENT ─────────────
+    @Override
+    protected JPanel createCenterPanel() {
 
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.WHITE);
         center.setBorder(BorderFactory.createEmptyBorder(40, 80, 40, 80));
 
+        // request test result button
         JButton requestBtn = new JButton("Request Test Result");
-        JButton viewBtn = new JButton("View Test Results");
-
-        requestBtn.addActionListener(e -> RequestTestResult.request(this));
-        viewBtn.addActionListener(e -> ViewResults.show(this));
-
+        requestBtn.addActionListener(e -> RequestTestResult.request(center));
         styleBtn(requestBtn);
+
+        // view test results button
+        JButton viewBtn = new JButton("View Test Results");
+        viewBtn.addActionListener(e -> ViewResults.show(center));
         styleBtn(viewBtn);
-        
+
+        // layout order
         center.add(requestBtn);
         center.add(Box.createVerticalStrut(15));
         center.add(viewBtn);
 
-        add(center, BorderLayout.CENTER);
+        return center;
     }
 
+    // ───────────── BUTTON STYLING ─────────────
     private void styleBtn(JButton btn) {
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.setMaximumSize(new Dimension(260, 45));
