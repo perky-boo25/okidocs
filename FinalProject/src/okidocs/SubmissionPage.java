@@ -67,27 +67,6 @@ public class SubmissionPage extends JPanel {
         add(center, BorderLayout.CENTER);
     }
 
-    private JPanel createHeaderBar(MainApp app) {
-        JPanel header = new JPanel(new BorderLayout());
-        header.setBackground(new Color(255, 184, 28));
-        header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
-
-        ImageIcon icon = new ImageIcon("src/okidocs/notOkay.png");
-        Image scaled = icon.getImage().getScaledInstance(160, 50, Image.SCALE_SMOOTH);
-        JLabel logo = new JLabel(new ImageIcon(scaled));
-
-        header.add(logo, BorderLayout.WEST);
-
-        JButton backBtn = new JButton("Back");
-        backBtn.setBackground(new Color(110, 9, 38));
-        backBtn.setForeground(Color.WHITE);
-        backBtn.addActionListener(e -> app.showHomePage());
-
-        header.add(backBtn, BorderLayout.EAST);
-
-        return header;
-    }
-
     private JLabel makeLabel(String text) {
         JLabel lbl = new JLabel(text);
         lbl.setAlignmentX(Component.CENTER_ALIGNMENT);

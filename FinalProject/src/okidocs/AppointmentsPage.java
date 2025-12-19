@@ -46,7 +46,7 @@ public class AppointmentsPage extends JPanel {
                 null,               // max
                 java.util.Calendar.DAY_OF_MONTH // makes it just 1 -31
                 ));
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "YYYY-MM-DD");
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
         dateSpinner.setEditor(editor);
 
         dateSpinner.setMaximumSize(new Dimension(300, 40));
@@ -102,31 +102,6 @@ public class AppointmentsPage extends JPanel {
         center.add(Box.createVerticalGlue());
 
         add(center, BorderLayout.CENTER);
-    }
-
-    // HEADER (NO DECOMPILE COMMENT)
-    private JPanel createHeaderBar(MainApp app) {
-
-        JPanel header = new JPanel(new BorderLayout());
-        header.setBackground(new Color(255, 184, 28));
-        header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
-
-        // Load image (simple, reliable path)
-        ImageIcon icon = new ImageIcon("src/okidocs/notOkay.png");
-        Image scaled = icon.getImage().getScaledInstance(160, 50, Image.SCALE_SMOOTH);
-        JLabel logo = new JLabel(new ImageIcon(scaled));
-
-        header.add(logo, BorderLayout.WEST);
-
-        JButton backBtn = new JButton("Back");
-        backBtn.setBackground(new Color(110, 9, 38));
-        backBtn.setForeground(Color.WHITE);
-        backBtn.setFocusPainted(false);
-        backBtn.addActionListener(e -> app.showHomePage());
-
-        header.add(backBtn, BorderLayout.EAST);
-
-        return header;
     }
 
     private JLabel makeLabel(String text) {
