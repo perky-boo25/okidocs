@@ -5,16 +5,19 @@ import javax.swing.*;
 
 public final class MainApp {
 
+    //main application frame
     private JFrame frame;
 
     public MainApp() {
 
+        //frame set-up
         frame = new JFrame("OKIDOCS");
         frame.setSize(900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
+        //starts with welcome page
         showWelcomePage();
         frame.setVisible(true);
     }
@@ -23,7 +26,7 @@ public final class MainApp {
         SwingUtilities.invokeLater(MainApp::new);
     }
 
-    // SCREEN SWITCH METHODS
+    // Screen Navigation methods
     public void showWelcomePage() {
         frame.setContentPane(new WelcomePage(this));
         refresh();
@@ -59,6 +62,7 @@ public final class MainApp {
         refresh();
     }
 
+    //Refreshes the current screen
     private void refresh() {
         frame.revalidate();
         frame.repaint();

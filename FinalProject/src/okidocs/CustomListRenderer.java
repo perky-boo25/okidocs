@@ -3,11 +3,14 @@ package okidocs;
 import java.awt.*;
 import javax.swing.*;
 
+// Custom renderer for JList to display DocumentItem with a download button
 public class CustomListRenderer extends JPanel implements ListCellRenderer<DocumentItem> {
 
+    // UI Components
     private final JLabel titleLabel = new JLabel();
     private final JButton downloadBtn = new JButton("Download");
 
+    // Colors
     private final Color purple = new Color(153, 102, 153);
     private final Color selectedColor = new Color(180, 150, 180);
 
@@ -19,6 +22,8 @@ public class CustomListRenderer extends JPanel implements ListCellRenderer<Docum
 
         add(titleLabel, BorderLayout.WEST);
         add(downloadBtn, BorderLayout.EAST);
+
+        //Prevent button from stealing focus
         downloadBtn.setFocusable(false);
     }
 
@@ -30,11 +35,14 @@ public class CustomListRenderer extends JPanel implements ListCellRenderer<Docum
             boolean isSelected,
             boolean cellHasFocus) {
 
+        //set document title
         titleLabel.setText(item.getTitle());
 
+        //change colors based on selection
         setBackground(isSelected ? selectedColor : purple);
         titleLabel.setForeground(isSelected ? Color.BLACK : Color.WHITE);
 
+        // keep button style consistent
         downloadBtn.setBackground(Color.WHITE);
 
         return this;

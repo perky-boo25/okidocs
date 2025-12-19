@@ -7,42 +7,17 @@ import javax.swing.*;
 
 public class DownloadablePage extends JPanel {
 
+    // Holds all downloadable item cards
     private final JPanel containerPanel = new JPanel();
 
     public DownloadablePage(MainApp app) {
 
         setLayout(new BorderLayout());
-
-        add(createHeaderBar(app), BorderLayout.NORTH);
+        add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
         add(createScrollArea(), BorderLayout.CENTER);
     }
 
-    private JPanel createHeaderBar(MainApp app) {
-
-        JPanel header = new JPanel(new BorderLayout());
-        header.setBackground(new Color(255, 184, 28));
-        header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
-
-        JLabel logo = new JLabel();
-        ImageIcon icon = new ImageIcon(getClass().getResource("/okidocs/notOkay.png"));
-        Image scaled = icon.getImage().getScaledInstance(180, 60, Image.SCALE_SMOOTH);
-        logo.setIcon(new ImageIcon(scaled));
-        header.add(logo, BorderLayout.WEST);
-
-        JButton backBtn = new JButton("Back");
-        backBtn.setForeground(Color.WHITE);
-        backBtn.setBackground(new Color(110, 9, 38));
-        backBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        backBtn.setFocusPainted(false);
-        backBtn.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        backBtn.addActionListener(e -> app.showHomePage());
-        header.add(backBtn, BorderLayout.EAST);
-
-        return header;
-    }
-
+    //Creates the scrollable area
     private JScrollPane createScrollArea() {
 
         containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
@@ -57,6 +32,7 @@ public class DownloadablePage extends JPanel {
         return scrollPane;
     }
 
+    //loads all the downloadable document cards
     private void loadCards() {
 
         ArrayList<DocumentItem> items = new ArrayList<>();

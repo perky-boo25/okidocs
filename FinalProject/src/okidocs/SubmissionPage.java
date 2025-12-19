@@ -6,8 +6,11 @@ import javax.swing.*;
 
 public class SubmissionPage extends JPanel {
 
+    // UI COMPONENTS
     private JComboBox<String> docTypeDropdown;
     private JTextField fileField;
+
+    // Selected File Reference
     private File selectedFile;
 
     public SubmissionPage(MainApp app) {
@@ -15,14 +18,16 @@ public class SubmissionPage extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
+        // HEADER
         add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
 
-
+        // CENTER PANEL
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.WHITE);
         center.setBorder(BorderFactory.createEmptyBorder(20, 250, 20, 250));
 
+        // Document Type Dropdown
         docTypeDropdown = new JComboBox<>(new String[]{
                 "Excuse Slip",
                 "Health Examination Form",
@@ -31,6 +36,7 @@ public class SubmissionPage extends JPanel {
         docTypeDropdown.setMaximumSize(new Dimension(350, 40));
         docTypeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // File Chooser Button and Field
         JButton chooseFileBtn = new JButton("Choose File");
         chooseFileBtn.setBackground(new Color(110, 9, 38));
         chooseFileBtn.setForeground(Color.WHITE);
@@ -38,12 +44,14 @@ public class SubmissionPage extends JPanel {
 
         chooseFileBtn.addActionListener(e -> openFileChooser());
 
+        //Displays chosen file name
         fileField = new JTextField();
         fileField.setEditable(false);
         fileField.setBorder(BorderFactory.createTitledBorder("Selected File"));
         fileField.setMaximumSize(new Dimension(350, 50));
         fileField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //Submit button
         JButton submitBtn = new JButton("Oki");
         submitBtn.setBackground(new Color(110, 9, 38));
         submitBtn.setForeground(Color.WHITE);
@@ -53,6 +61,7 @@ public class SubmissionPage extends JPanel {
 
         submitBtn.addActionListener(e -> handleSubmit());
 
+        //Layout order
         center.add(Box.createVerticalGlue());
         center.add(makeLabel("What type of document?"));
         center.add(docTypeDropdown);
@@ -67,6 +76,7 @@ public class SubmissionPage extends JPanel {
         add(center, BorderLayout.CENTER);
     }
 
+    // Creates a centered label
     private JLabel makeLabel(String text) {
         JLabel lbl = new JLabel(text);
         lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -74,6 +84,7 @@ public class SubmissionPage extends JPanel {
         return lbl;
     }
 
+    //Opens file chooser and stores selected file
     private void openFileChooser() {
         JFileChooser chooser = new JFileChooser();
 
@@ -86,13 +97,16 @@ public class SubmissionPage extends JPanel {
         }
     }
 
+    //File Submission Logic
     private void handleSubmit() {
 
+    //Validate file selection
     if (selectedFile == null) {
         JOptionPane.showMessageDialog(this, "Please choose a file first.");
         return;
     }
 
+    //Get logged-in student
     int studentId = Session.getStudentId();
    
     if (studentId == -1){
@@ -100,6 +114,7 @@ public class SubmissionPage extends JPanel {
         return;
     }
 
+    //Confirm Submission
     int confirm = JOptionPane.showConfirmDialog(this, "Submit this file?", "Confirm Submission", JOptionPane.YES_NO_OPTION);
 
     if(confirm != JOptionPane.YES_OPTION){
@@ -107,6 +122,8 @@ public class SubmissionPage extends JPanel {
     }
 
     String docType = (String) docTypeDropdown.getSelectedItem();
+
+    //Prepare data
     String filePath = selectedFile.getAbsolutePath();
 
     boolean success = ExcuseSlipDAO.submitSlip(
@@ -116,6 +133,7 @@ public class SubmissionPage extends JPanel {
             filePath
         );
 
+    //Result feedback
     if (success) {
         JOptionPane.showMessageDialog(this, "File submitted successfully!");
         selectedFile = null;

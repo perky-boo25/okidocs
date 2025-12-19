@@ -13,11 +13,8 @@ public class HeaderPanel extends JPanel {
 
         // LOGO (LEFT)
         JLabel logo = new JLabel();
-        ImageIcon icon = new ImageIcon(
-                getClass().getResource("/okidocs/notOkay.png")
-        );
-        Image scaled = icon.getImage()
-                .getScaledInstance(180, 60, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(getClass().getResource("/okidocs/notOkay.png") );
+        Image scaled = icon.getImage().getScaledInstance(180, 60, Image.SCALE_SMOOTH);
         logo.setIcon(new ImageIcon(scaled));
 
         add(logo, BorderLayout.WEST);
