@@ -1,102 +1,89 @@
 package okidocs;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Fake medical results for demo purposes only.
- * This simulates data normally retrieved from the database.
+ * Fake medical results used for demo and testing purposes.
+ * This simulates data normally retrieved from the test_results table.
  */
 public class FakeMedicalResults {
 
-    public static List<MedicalResult> getResults(String category) {
+    public static List<MedicalResult> getResults() {
 
         List<MedicalResult> results = new ArrayList<>();
+        Date today = Date.valueOf(LocalDate.now());
 
-        switch (category) {
+        // =========================
+        // VITAL SIGNS
+        // =========================
+        results.add(new MedicalResult(
+                "Blood Pressure",
+                "Vital Signs",
+                "120/80 mmHg",
+                "90/60 – 120/80",
+                "Normal",
+                today,
+                "Patient is within normal range."
+        ));
 
-            case "VITALS":
-                results.add(new MedicalResult(
-                        "Blood Pressure",
-                        "120/80 mmHg",
-                        "90/60 – 120/80",
-                        "Normal"
-                ));
-                results.add(new MedicalResult(
-                        "Heart Rate",
-                        "72 bpm",
-                        "60 – 100 bpm",
-                        "Normal"
-                ));
-                results.add(new MedicalResult(
-                        "Temperature",
-                        "36.6 °C",
-                        "36.5 – 37.5 °C",
-                        "Normal"
-                ));
-                results.add(new MedicalResult(
-                        "BMI",
-                        "21.5",
-                        "18.5 – 24.9",
-                        "Normal"
-                ));
-                break;
+        results.add(new MedicalResult(
+                "Heart Rate",
+                "Vital Signs",
+                "72 bpm",
+                "60 – 100 bpm",
+                "Normal",
+                today,
+                "No abnormalities detected."
+        ));
 
-            case "CBC":
-                results.add(new MedicalResult(
-                        "Hemoglobin",
-                        "13.8 g/dL",
-                        "12 – 16 g/dL",
-                        "Normal"
-                ));
-                results.add(new MedicalResult(
-                        "White Blood Cells",
-                        "6.5 x10⁹/L",
-                        "4 – 11 x10⁹/L",
-                        "Normal"
-                ));
-                results.add(new MedicalResult(
-                        "Platelets",
-                        "250 x10⁹/L",
-                        "150 – 450 x10⁹/L",
-                        "Normal"
-                ));
-                break;
+        results.add(new MedicalResult(
+                "Body Temperature",
+                "Vital Signs",
+                "36.7 °C",
+                "36.5 – 37.5 °C",
+                "Normal",
+                today,
+                "Afebrile."
+        ));
 
-            case "URINALYSIS":
-                results.add(new MedicalResult(
-                        "Protein",
-                        "Negative",
-                        "Negative",
-                        "Normal"
-                ));
-                results.add(new MedicalResult(
-                        "Glucose",
-                        "Negative",
-                        "Negative",
-                        "Normal"
-                ));
-                results.add(new MedicalResult(
-                        "Red Blood Cells",
-                        "0 – 1 /hpf",
-                        "0 – 2 /hpf",
-                        "Normal"
-                ));
-                break;
+        // =========================
+        // LABORATORY TESTS
+        // =========================
+        results.add(new MedicalResult(
+                "Hemoglobin",
+                "Laboratory",
+                "13.9 g/dL",
+                "12 – 16 g/dL",
+                "Normal",
+                today,
+                "Hemoglobin level is normal."
+        ));
 
-            case "XRAY":
-                results.add(new MedicalResult(
-                        "Chest X-Ray",
-                        "Clear",
-                        "N/A",
-                        "No abnormal findings"
-                ));
-                break;
+        results.add(new MedicalResult(
+                "White Blood Cell Count",
+                "Laboratory",
+                "6.2 x10⁹/L",
+                "4 – 11 x10⁹/L",
+                "Normal",
+                today,
+                "No signs of infection."
+        ));
 
-            default:
-                // return empty list if category not recognized
-                break;
-        }
+        // =========================
+        // IMAGING
+        // =========================
+        results.add(new MedicalResult(
+                "Chest X-Ray",
+                "Imaging",
+                "Clear",
+                "N/A",
+                "Normal",
+                today,
+                "No radiographic abnormalities."
+        ));
 
         return results;
     }
