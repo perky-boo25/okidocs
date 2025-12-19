@@ -7,12 +7,8 @@ import javax.swing.*;
 
 public class DownloadablePage extends AbstractPage {
 
-    // container for all document cards
-    private final JPanel containerPanel = new JPanel();
-
-    // constructor
     public DownloadablePage(MainApp app) {
-        super(app); // inherit layout + header from AbstractPage
+        super(app);
     }
 
     // ───────────── CENTER CONTENT ─────────────
@@ -22,36 +18,34 @@ public class DownloadablePage extends AbstractPage {
         JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.setBackground(Color.WHITE);
 
-        wrapper.add(createScrollArea(), BorderLayout.CENTER);
+        JScrollPane scrollPane = createScrollArea();
+        wrapper.add(scrollPane, BorderLayout.CENTER);
 
         return wrapper;
     }
 
-
     // ───────────── SCROLLABLE AREA ─────────────
     private JScrollPane createScrollArea() {
 
-    // RESET container to avoid stale state
-    containerPanel.removeAll();
-    containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
-    containerPanel.setBackground(Color.WHITE);
+        // ✅ LOCAL panel (NOT a field)
+        JPanel containerPanel = new JPanel();
+        containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
+        containerPanel.setBackground(Color.WHITE);
 
-    loadCards();
+        loadCards(containerPanel);
 
-    JScrollPane scrollPane = new JScrollPane(containerPanel);
-    scrollPane.setBorder(null);
-    scrollPane.getVerticalScrollBar().setUnitIncrement(15);
+        JScrollPane scrollPane = new JScrollPane(containerPanel);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(15);
 
-    return scrollPane;
-}
-
+        return scrollPane;
+    }
 
     // ───────────── LOAD DOCUMENT CARDS ─────────────
-    private void loadCards() {
+    private void loadCards(JPanel containerPanel) {
 
         ArrayList<DocumentItem> items = new ArrayList<>();
 
-        // predefined downloadable files
         items.add(new DocumentItem(
                 "Lab Report",
                 "https://drive.google.com/uc?export=download&id=1KAW5zG6Z7jHpXa6BlTWqJQxyXVsBo8Tv"
@@ -77,13 +71,11 @@ public class DownloadablePage extends AbstractPage {
                 "https://drive.google.com/uc?export=download&id=1j1k9LeFXBzZL26CtPsDDVqwAudBDnWMQ"
         ));
 
-        // create UI cards
         for (DocumentItem item : items) {
 
             MaterialItemCard card = new MaterialItemCard(item);
             card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
 
-            // attach download action
             card.getButton().addActionListener(
                     e -> openLink(e.getActionCommand())
             );
@@ -93,7 +85,7 @@ public class DownloadablePage extends AbstractPage {
         }
     }
 
-    // Open download link
+    // ───────────── OPEN LINK ─────────────
     private void openLink(String url) {
         try {
             Desktop.getDesktop().browse(new URI(url));
