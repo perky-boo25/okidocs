@@ -105,11 +105,32 @@ public class SubmissionPage extends JPanel {
     }
 
     private void handleSubmit() {
-        if (selectedFile == null) {
-            JOptionPane.showMessageDialog(this, "Please choose a file first!");
-            return;
-        }
 
-        JOptionPane.showMessageDialog(this, "File submitted successfully!");
+    if (selectedFile == null) {
+        JOptionPane.showMessageDialog(this, "Please choose a file first!");
+        return;
     }
+
+    String docType = (String) docTypeDropdown.getSelectedItem();
+    String fileName = selectedFile.getName();
+    String filePath = selectedFile.getAbsolutePath();
+
+    // TEMP: replace later with logged-in student
+    String studentNum = "2023-00001";
+
+    boolean success = SubmissionDAO.submitFile(
+            studentNum,
+            fileName,
+            filePath,
+            docType
+    );
+
+    if (success) {
+        JOptionPane.showMessageDialog(this, "File submitted successfully!");
+        selectedFile = null;
+        fileField.setText("");
+    } else {
+        JOptionPane.showMessageDialog(this, "Submission failed.");
+    }
+
 }
