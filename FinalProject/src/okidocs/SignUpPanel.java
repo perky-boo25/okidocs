@@ -3,6 +3,7 @@ package okidocs;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import okidocs.app.MainApp;
 
 public class SignUpPanel extends JPanel {
 

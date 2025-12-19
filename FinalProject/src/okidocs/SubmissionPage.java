@@ -4,6 +4,8 @@ import java.awt.*;
 import java.io.File;
 import javax.swing.*;
 
+import okidocs.app.MainApp;
+
 public class SubmissionPage extends JPanel {
 
     // UI COMPONENTS

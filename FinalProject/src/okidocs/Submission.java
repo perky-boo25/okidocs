@@ -15,19 +15,8 @@ public class Submission {
         this.pdfPath = pdfPath;
     }
 
-    public int getSubmissionId() {
-        return submissionId;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public String getSubmissionType() {
-        return submissionType;
-    }
-
-    public String getPdfPath() {
-        return pdfPath;
-    }
+    public int getSubmissionId() { return submissionId; }
+    public int getStudentId() { return studentId; }
+    public String getSubmissionType() { return submissionType; }
+    public String getPdfPath() { return pdfPath; }
 }
