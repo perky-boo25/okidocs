@@ -7,8 +7,8 @@ import javax.swing.*;
 public class SubmissionPage extends JPanel {
 
     // UI COMPONENTS
-    private JComboBox<String> docTypeDropdown;
-    private JTextField fileField;
+    private final JComboBox<String> docTypeDropdown;
+    private final JTextField fileField;
 
     // Selected File Reference
     private File selectedFile;
@@ -124,9 +124,10 @@ public class SubmissionPage extends JPanel {
     //Prepare data
     String filePath = selectedFile.getAbsolutePath();
 
+    String docType = (String) docTypeDropdown.getSelectedItem();
+    
     boolean success = ExcuseSlipDAO.submitSlip(
             studentId, 
-            java.sql.Date.valueOf(java.time.LocalDate.now()),
             docType,
             filePath
         );
