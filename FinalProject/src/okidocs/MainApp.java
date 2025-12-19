@@ -67,4 +67,9 @@ public final class MainApp {
         frame.revalidate();
         frame.repaint();
     }
+
+    public void showTestResultPage() {
+    frame.setContentPane(new TestResultPage(this));
+    refresh();
+}
 }
