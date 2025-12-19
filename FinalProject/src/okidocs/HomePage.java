@@ -26,11 +26,8 @@ public class HomePage extends JPanel {
         top.setBackground(Color.WHITE);
         ImageIcon img = new ImageIcon(getClass().getResource("/okidocs/title.png"));
         Image logo = img.getImage().getScaledInstance(300, 150, Image.SCALE_SMOOTH);
-        
-        ImageIcon resized = new ImageIcon(logo);
-        JLabel imgLabel = new JLabel(resized);
+        JLabel imgLabel = new JLabel(new ImageIcon(logo));
         imgLabel.setBorder(BorderFactory.createEmptyBorder(50, 15, 5, 5));
-        
         top.add(imgLabel, BorderLayout.CENTER);
 
         // LOGIN BUTTON
