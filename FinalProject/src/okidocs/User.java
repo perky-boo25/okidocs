@@ -1,14 +1,14 @@
 package okidocs;
 
 public class User {
-    private int studentID;
-    private String name;
-    private String email;
+    private final int studentID;
+    private final String name;
+    private final String password;
 
-    public User(int studentID, String name, String email) {
+    public User(int studentID, String name, String password) {
         this.studentID = studentID;
         this.name = name;
-        this.email = email;
+        this.password = password;
     }
 
     public int getStudentID() {
@@ -19,7 +19,7 @@ public class User {
         return this.name;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getPassword() {
+        return this.password;
     }
 }
