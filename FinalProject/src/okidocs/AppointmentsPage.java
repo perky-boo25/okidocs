@@ -50,7 +50,7 @@ public class AppointmentsPage extends JPanel {
         dateSpinner.setEditor(editor);
 
         JFormattedTextField tf = ((JSpinner.DefaultEditor) dateSpinner.getEditor()).getTextField();
-        tf.setCaret(0);
+        tf.setCaretPosition(0);
         
         dateSpinner.setMaximumSize(new Dimension(300, 40));
         dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
