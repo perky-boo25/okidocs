@@ -2,31 +2,32 @@ package okidocs;
 
 public class Submission {
 
-    private int appointmentID;
-    private int studentID;
+    private int submissionId;
+    private int studentId;
     private String submissionType;
     private String pdfPath;
 
-    public Submission(int appointmentID, int studentID, String submissionType, String pdfPath) {
-        this.appointmentID = appointmentID;
-        this.studentID = studentID;
+    public Submission(int submissionId, int studentId,
+                      String submissionType, String pdfPath) {
+        this.submissionId = submissionId;
+        this.studentId = studentId;
         this.submissionType = submissionType;
         this.pdfPath = pdfPath;
     }
 
-    public int getAppointmentID() {
-        return this.appointmentID;
+    public int getSubmissionId() {
+        return submissionId;
     }
 
-    public int getStudentID() {
-        return this.studentID;
+    public int getStudentId() {
+        return studentId;
     }
 
     public String getSubmissionType() {
-        return this.submissionType;
+        return submissionType;
     }
 
-     public String getPdfPath() {
-        return this.pdfPath;
+    public String getPdfPath() {
+        return pdfPath;
     }
 }
