@@ -128,22 +128,29 @@ public class AppointmentsPage extends JPanel {
 
     private void handleSubmit() {
 
-    String dateText = dateField.getText().trim();
-    String timeText = (String) timeDropdown.getSelectedItem();
+        String dateText = dateField.getText().trim();
+        String timeText = (String) timeDropdown.getSelectedItem();
 
-    if (dateText.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill out all fields.");
-        return;
-    }
+        if (dateText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill out all fields.");
+            return;
+        }
 
-    try {
-        java.sql.Date date = java.sql.Date.valueOf(dateText);
-        java.sql.Time time = java.sql.Time.valueOf(convertTime(timeText));
+        int studentId = Session.getStudentId();
 
-        String studentNum = "2023-00001"; // temp
+        if(studentId == -1){
+            JOptionPane.showMessageDialog(this, "Please login first.");
+            return;
+        }
 
-        boolean booked = AppointmentDAO.bookAppointment(
-                studentNum, date, time
+        try {
+            //Convert to SQL Date and Time
+            java.sql.Date date = java.sql.Date.valueOf(dateText);
+            java.sql.Time time = java.sql.Time.valueOf(convertTime(timeText));
+            
+
+            boolean booked = AppointmentDAO.bookAppointment(
+                studentId, date, time
         );
 
         if (booked) {

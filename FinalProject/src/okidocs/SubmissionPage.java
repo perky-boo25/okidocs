@@ -122,7 +122,8 @@ public class SubmissionPage extends JPanel {
     String fileName = selectedFile.getName();
     String filePath = selectedFile.getAbsolutePath();
 
-    boolean success
+    boolean success = ExcuseSlipDAO.submitSlip(
+            studentId, java.sql.Date.valueOf(java.time.LocalDate.now()), filePath);
     
 
     if (success) {
