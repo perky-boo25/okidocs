@@ -64,17 +64,26 @@ public class LoginPanel extends JPanel {
         add(centerPanel, BorderLayout.CENTER);
     }
 
-    // ➤ BACKEND HOOK #1 — LOGIN VALIDATION (CODER WILL EDIT LATER)
-    private boolean validateLogin(String studentNum, String password) {
+    // ➤ BACKEND HOOK #1 — LOGIN VALIDATION (TEMP)
+    private boolean validateLogin(String studentIdText, String password) {
 
-        // TODO: CONNECT DATABASE HERE
-        // Example:
-        // return Database.verifyUser(studentNum, password);
+        // TEMP student data
+        StudentInfo student = new StudentInfo(
+            "John Doe",
+            202512345,
+            java.sql.Date.valueOf("2025-09-01"),
+            java.sql.Date.valueOf("2025-09-10")
+        );
 
-        // TEMPORARY KEYWORD PASS: (for testing only)
-        return studentNum.equals("test") && password.equals("pass");
+        // TEMP validation
+        if (studentIdText.equals(String.valueOf(student.getStudentId())) && password.equals("pass")) {
 
-        // Replace the above simple check later with real DB logic!
+            // SAVE logged-in student ID to session
+            Session.setStudentId(student.getStudentId());
+            return true;
+        }
+
+        return false;
     }
 
 
