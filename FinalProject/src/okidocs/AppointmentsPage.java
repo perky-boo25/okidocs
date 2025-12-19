@@ -5,10 +5,10 @@ import javax.swing.*;
 
 public class AppointmentsPage extends JPanel {
 
-    private JComboBox<String> typeDropdown;
-    private JTextField studentIdField;
-    private JSpinner dateSpinner;
-    private JComboBox<String> timeDropdown;
+    private final JComboBox<String> typeDropdown;
+    private final JTextField studentIdField;
+    private final JSpinner dateSpinner;
+    private final JComboBox<String> timeDropdown;
 
     public AppointmentsPage(MainApp app) {
 
