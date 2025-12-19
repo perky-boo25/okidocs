@@ -51,8 +51,13 @@ public class AppointmentsPage extends JPanel {
 
         JFormattedTextField tf = editor.getTextField();
 
-        tf.setCaretPosition(8);
-        
+        dateSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                SwingUtilities.invokeLater(() -> tf.setCaretPosition(8));
+            }
+        });
+
         dateSpinner.setMaximumSize(new Dimension(300, 40));
         dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
 
