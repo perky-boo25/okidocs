@@ -3,42 +3,47 @@ package okidocs;
 import java.sql.Date;
 
 public class Appointment {
-    private int appointmentID;
-    private int studentID;
+    private int appointmentId;
+    private int studentId;
     private Date date;
-    private String timeslot;
+    private String timeSlot;
     private String status;
 
-    public Appointment(int studentID, Date date, String timeslot) {
-        this.studentID = studentID;
+    public Appointment(int studentId, Date date, String timeSlot) {
+        this.studentId = studentId;
         this.date = date;
-        this.timeslot = timeslot;
-        this.status = "Booked";
+        this.timeSlot = timeSlot;
+        this.status = "BOOKED";
     } 
 
-    public Appointment(int appointmentID, int studentID, Date date, String timeslot,String status) {
-        this.studentID = studentID;
+    public Appointment(int appointmentId, int studentId, Date date, String timeSlot,String status) {
+        this.studentId = studentId;
         this.date = date;
-        this.timeslot = timeslot;
+        this.timeSlot = timeSlot;
     } 
 
-    public int getAppointmentID(){
-        return this.appointmentID;
+    public int getAppointmentId(){
+        return this.appointmentId;
     }
 
-    public int getstudentID(){
-        return this.studentID;
+    public int getstudentId(){
+        return this.studentId;
     }
 
     public Date getDate(){
         return this.date;
     }
 
-    public String getTimeslot(){
-        return this.timeslot;
+    public String gettimeSlot(){
+        return this.timeSlot;
     }
 
     public String getStatus(){
         return this.status;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment #" + appointmentId + " (" + status + ")";
     }
 }
