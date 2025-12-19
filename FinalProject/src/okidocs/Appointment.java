@@ -1,3 +1,5 @@
+package okidocs;
+
 import java.sql.Date;
 
 public class Appointment {
