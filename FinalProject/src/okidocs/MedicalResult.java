@@ -4,13 +4,13 @@ import java.sql.Date;
 
 public class MedicalResult {
 
-    private String testName;
-    private String category;
-    private String resultValue;
-    private String normalRange;
-    private String remarks;
-    private Date dateReleased;
-    private String doctorRemark;
+    private final String testName;
+    private final String category;
+    private final String resultValue;
+    private final String normalRange;
+    private final String remarks;
+    private final Date dateReleased;
+    private final String doctorRemark;
 
     public MedicalResult(
             String testName,
