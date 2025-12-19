@@ -4,7 +4,42 @@ import java.sql.*;
 
 public class StudentDAO {
 
-    public static boolean validateLogin(int studentId, String password) {
+    // ===============================
+    // SIGN UP
+    // ===============================
+    public static boolean register(
+            int studentId,
+            String name,
+            String password
+    ) {
+
+        String sql = """
+            INSERT INTO students (student_id, student_name, acc_password)
+            VALUES (?, ?, ?)
+        """;
+
+        try (Connection c = Database.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, studentId);
+            ps.setString(2, name);
+            ps.setString(3, password);
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            // Duplicate student_id or DB error
+            return false;
+        }
+    }
+
+    // ===============================
+    // LOG IN
+    // ===============================
+    public static boolean validateLogin(
+            int studentId,
+            String password
+    ) {
 
         String sql = """
             SELECT student_id
@@ -22,29 +57,7 @@ public class StudentDAO {
             return rs.next();
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
-    }
-
-    public static String getStudentName(int studentId) {
-
-        String sql = "SELECT student_name FROM students WHERE student_id = ?";
-
-        try (Connection c = Database.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setInt(1, studentId);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return rs.getString("student_name");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }
