@@ -32,23 +32,37 @@ public class SignUpPanel extends JPanel {
         //CHANGED IT HERE
        submitBtn.addActionListener(e -> {
 
-            String name = nameField.getText();
-            String studentNum = studentNumField.getText();
+            String name = nameField.getText().trim();
+            String studentNum = studentNumField.getText().trim();
             String password = new String(passwordField.getPassword());
 
-            // CALL BACKEND SIGNUP HOOK
-            boolean ok = registerUser(name, studentNum, password);
-
-            if (ok) {
-                JOptionPane.showMessageDialog(this, "Account created!\nYou can now log in.");
-                app.showLoginPage();
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Signup failed.\nReplace this once DB exists.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+            if (name.isEmpty() || studentNum.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "All fields are required.");
+                return;
             }
-        });
+
+        int studentId;
+        try {
+            studentId = Integer.parseInt(studentNum);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Student number must be numeric.");
+            return;
+        }
+
+        boolean success = StudentDAO.register(studentId, name, password);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this,
+                    "Account created successfully!\nYou may now log in.");
+            app.showLoginPage();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                "Student ID already exists.",
+                "Sign-up Failed",
+                JOptionPane.ERROR_MESSAGE);
+    }
+});
+
 
         backBtn.addActionListener(e -> app.showLoginPage());
 
