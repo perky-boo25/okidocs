@@ -41,23 +41,15 @@ public class AppointmentsPage extends JPanel {
         // Date (YYYY-MM-DD)
         dateSpinner = new JSpinner(
             new SpinnerDateModel(
-                new java.util.Date(),   // initial value
+                new java.util.Date(),   // today
                 null,             // min
                 null,               // max
                 java.util.Calendar.DAY_OF_MONTH // makes it just 1 -31
                 ));
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "dd-MM-yyyy");
         dateSpinner.setEditor(editor);
 
-        JFormattedTextField tf = editor.getTextField();
-
-        dateSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusGained(java.awt.event.FocusEvent e) {
-                SwingUtilities.invokeLater(() -> tf.setCaretPosition(8));
-            }
-        });
-
+        
         dateSpinner.setMaximumSize(new Dimension(300, 40));
         dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
 
