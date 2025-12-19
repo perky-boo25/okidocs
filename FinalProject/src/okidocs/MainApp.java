@@ -10,7 +10,7 @@ public final class MainApp {
 
     public MainApp() {
 
-        //frame set-up
+        //frame set-up 
         frame = new JFrame("OKIDOCS");
         frame.setSize(900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
