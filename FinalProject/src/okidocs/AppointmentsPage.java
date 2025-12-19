@@ -16,7 +16,7 @@ public class AppointmentsPage extends JPanel {
         setBackground(Color.WHITE);
 
         // HEADER
-        add(createHeaderBar(app), BorderLayout.NORTH);
+        add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
 
         // CENTER PANEL (uses BoxLayout to center everything)
         JPanel center = new JPanel();

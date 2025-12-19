@@ -15,7 +15,8 @@ public class SubmissionPage extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        add(createHeaderBar(app), BorderLayout.NORTH);
+        add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
+
 
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
