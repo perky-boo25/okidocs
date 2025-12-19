@@ -74,6 +74,7 @@ public class HomePage extends JPanel {
         btn1.addActionListener(e -> app.showDownloadablePage());
         btn2.addActionListener(e -> app.showAppointmentsPage());
         btn3.addActionListener(e -> app.showSubmissionPage());
+        btn4.addActionListener(e -> app.showTestResultPage());
         
         center.add(Box.createVerticalGlue());
         center.add(btn1);
