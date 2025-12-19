@@ -49,6 +49,10 @@ public class AppointmentsPage extends JPanel {
         JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
         dateSpinner.setEditor(editor);
 
+        JFormattedTextField tf = editor.getTextField();
+
+        tf.setCaretPosition(8);
+        
         dateSpinner.setMaximumSize(new Dimension(300, 40));
         dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
 
