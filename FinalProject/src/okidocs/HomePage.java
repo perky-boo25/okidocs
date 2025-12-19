@@ -83,7 +83,8 @@ public class HomePage extends JPanel {
         center.add(btn4);
         center.add(Box.createVerticalGlue());
 
-        main.add(center);
+        main.add(top, BorderLayout.NORTH);
+        main.add(center, BorderLayout.CENTER);
         add(main);
     }
 }
