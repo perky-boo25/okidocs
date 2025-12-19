@@ -3,28 +3,30 @@ package okidocs;
 import java.awt.*;
 import javax.swing.*;
 
-public class AppointmentsPage extends JPanel {
+public class AppointmentsPage extends AbstractPage {
 
-    private final JComboBox<String> typeDropdown;
-    private final JTextField studentIdField;
-    private final JSpinner dateSpinner;
-    private final JComboBox<String> timeDropdown;
+    // Components
+    private JComboBox<String> typeDropdown;
+    private JTextField studentIdField;
+    private JSpinner dateSpinner;
+    private JComboBox<String> timeDropdown;
 
+    // Constructor
     public AppointmentsPage(MainApp app) {
+        super(app); // inherit layout + header from AbstractPage
+    }
 
-        setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+    // Center content
+    @Override
+    protected JPanel createCenterPanel() {
 
-        // HEADER
-        add(new HeaderPanel(app, app::showHomePage), BorderLayout.NORTH);
-
-        // CENTER PANEL
+        // main container
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.WHITE);
         center.setBorder(BorderFactory.createEmptyBorder(20, 250, 20, 250));
 
-        // Dropdown: Type
+        // appointment type selector
         typeDropdown = new JComboBox<>(new String[]{
                 "General Check-up",
                 "Dental Check-up"
@@ -32,14 +34,14 @@ public class AppointmentsPage extends JPanel {
         typeDropdown.setMaximumSize(new Dimension(300, 40));
         typeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Student ID field (display only – login is via Session)
+        // student ID display (session-based)
         studentIdField = new JTextField();
         studentIdField.setBorder(BorderFactory.createTitledBorder("Student ID"));
         studentIdField.setMaximumSize(new Dimension(300, 50));
         studentIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
         studentIdField.setEditable(true);
 
-        // Date spinner
+        // date picker
         dateSpinner = new JSpinner(new SpinnerDateModel(
                 new java.util.Date(),
                 null,
@@ -54,7 +56,7 @@ public class AppointmentsPage extends JPanel {
         dateSpinner.setMaximumSize(new Dimension(300, 40));
         dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Time dropdown
+        // time slot selector
         timeDropdown = new JComboBox<>(new String[]{
                 "08:00 AM", "08:30 AM",
                 "09:00 AM", "09:30 AM",
@@ -68,22 +70,21 @@ public class AppointmentsPage extends JPanel {
         timeDropdown.setMaximumSize(new Dimension(300, 40));
         timeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Note
+        // system notice
         JLabel note = new JLabel("HSU has lunch break at 11:30 AM to 1:00 PM");
         note.setForeground(Color.RED);
         note.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Submit button
+        // submit action
         JButton submit = new JButton("Oki");
         submit.setBackground(new Color(98, 0, 238));
         submit.setForeground(Color.WHITE);
         submit.setFont(new Font("Segoe UI", Font.BOLD, 16));
         submit.setAlignmentX(Component.CENTER_ALIGNMENT);
         submit.setMaximumSize(new Dimension(120, 40));
-
         submit.addActionListener(e -> handleSubmit());
 
-        // Add components
+        // layout order
         center.add(Box.createVerticalGlue());
         center.add(makeLabel("Appointment Type:"));
         center.add(typeDropdown);
@@ -101,9 +102,10 @@ public class AppointmentsPage extends JPanel {
         center.add(submit);
         center.add(Box.createVerticalGlue());
 
-        add(center, BorderLayout.CENTER);
+        return center;
     }
 
+    // Helper Label
     private JLabel makeLabel(String text) {
         JLabel label = new JLabel(text);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -111,39 +113,45 @@ public class AppointmentsPage extends JPanel {
         return label;
     }
 
+    // Submission Login
     private void handleSubmit() {
 
+        // session validation
         int studentId = Session.getStudentId();
-
         if (studentId == -1) {
             JOptionPane.showMessageDialog(this, "Please login first.");
             return;
         }
 
+        // extract user input
         java.util.Date selectedDate = (java.util.Date) dateSpinner.getValue();
         String timeText = (String) timeDropdown.getSelectedItem();
 
+        // convert to SQL-safe values
         java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
         String timeSlot = convertTime(timeText);
 
-        // Check slot first
+        // availability check
         if (AppointmentDAO.isSlotTaken(sqlDate, timeSlot)) {
             JOptionPane.showMessageDialog(this, "Time slot already taken.");
             return;
         }
 
+        // booking action
         boolean booked = AppointmentDAO.bookAppointment(
                 studentId,
                 sqlDate,
                 timeSlot
         );
 
+        // user feedback
         JOptionPane.showMessageDialog(
                 this,
                 booked ? "Appointment booked!" : "Booking failed."
         );
     }
 
+    // ───────────── TIME CONVERSION ─────────────
     private String convertTime(String time) {
         return switch (time) {
             case "08:00 AM" -> "08:00";
