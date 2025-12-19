@@ -92,7 +92,7 @@ public class DownloadablePage extends AbstractPage {
         }
     }
 
-    // ───────────── OPEN DOWNLOAD LINK ─────────────
+    // Open download link
     private void openLink(String url) {
         try {
             Desktop.getDesktop().browse(new URI(url));
