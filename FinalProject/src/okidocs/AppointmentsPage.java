@@ -6,8 +6,8 @@ import javax.swing.*;
 public class AppointmentsPage extends JPanel {
 
     private JComboBox<String> typeDropdown;
-    private JTextField nameField;
-    private JTextField dateField;
+    private JTextField studentIdField;
+    private JSpinner dateSpinner;
     private JComboBox<String> timeDropdown;
 
     public AppointmentsPage(MainApp app) {
@@ -33,16 +33,26 @@ public class AppointmentsPage extends JPanel {
         typeDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Name field
-        nameField = new JTextField();
-        nameField.setBorder(BorderFactory.createTitledBorder("Name"));
-        nameField.setMaximumSize(new Dimension(300, 50));
-        nameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        studentIdField = new JTextField();
+        studentIdField .setBorder(BorderFactory.createTitledBorder("Student ID: "));
+        studentIdField .setMaximumSize(new Dimension(300, 50));
+        studentIdField .setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Date (YYYY-MM-DD)
-        dateField = new JTextField();
-        dateField.setBorder(BorderFactory.createTitledBorder("Date (YYYY-MM-DD)"));
-        dateField.setMaximumSize(new Dimension(300, 50));
-        dateField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dateSpinner = new JSpinner(
+            new SpinnerDateModel(
+                new java.util.Date(),   // initial value
+                null,             // min
+                null,               // max
+                java.util.Calendar.DAY_OF_MONTH // makes it just 1 -31
+                ));
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "YYYY-MM-DD");
+        dateSpinner.setEditor(editor);
+
+        dateSpinner.setMaximumSize(new Dimension(300, 40));
+        dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
 
         // Time dropdown
         timeDropdown = new JComboBox<>(new String[]{
@@ -78,10 +88,10 @@ public class AppointmentsPage extends JPanel {
         center.add(makeLabel("Appointment Type:"));
         center.add(typeDropdown);
         center.add(Box.createVerticalStrut(15));
-        center.add(nameField);
+        center.add(studentIdField);
         center.add(Box.createVerticalStrut(15));
         center.add(makeLabel("Date:"));
-        center.add(dateField);
+        center.add(dateSpinner);
         center.add(Box.createVerticalStrut(15));
         center.add(makeLabel("Time:"));
         center.add(timeDropdown);
@@ -128,13 +138,8 @@ public class AppointmentsPage extends JPanel {
 
     private void handleSubmit() {
 
-        String dateText = dateField.getText().trim();
+        java.util.Date selectedDate = (java.util.Date) dateSpinner.getValue();
         String timeText = (String) timeDropdown.getSelectedItem();
-
-        if (dateText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill out all fields.");
-            return;
-        }
 
         int studentId = Session.getStudentId();
 
@@ -145,7 +150,7 @@ public class AppointmentsPage extends JPanel {
 
         try {
             //Convert to SQL Date and Time
-            java.sql.Date date = java.sql.Date.valueOf(dateText);
+            java.sql.Date date = new java.sql.Date(selectedDate.getTime());
             java.sql.Time time = java.sql.Time.valueOf(convertTime(timeText));
             
 
