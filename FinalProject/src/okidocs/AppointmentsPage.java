@@ -38,7 +38,7 @@ public class AppointmentsPage extends JPanel {
         studentIdField .setMaximumSize(new Dimension(300, 50));
         studentIdField .setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Date (YYYY-MM-DD)
+        // Date (dd-MM-yyyy)
         dateSpinner = new JSpinner(
             new SpinnerDateModel(
                 new java.util.Date(),   // today
@@ -91,7 +91,7 @@ public class AppointmentsPage extends JPanel {
         center.add(Box.createVerticalStrut(15));
         center.add(studentIdField);
         center.add(Box.createVerticalStrut(15));
-        center.add(makeLabel("Date:"));
+        center.add(makeLabel("Date (DD-MM-YYYY):"));
         center.add(dateSpinner);
         center.add(Box.createVerticalStrut(15));
         center.add(makeLabel("Time:"));
