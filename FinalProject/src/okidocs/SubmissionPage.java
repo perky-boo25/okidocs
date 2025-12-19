@@ -82,7 +82,7 @@ public class SubmissionPage extends JPanel {
 
         if (res == JFileChooser.APPROVE_OPTION) {
             selectedFile = chooser.getSelectedFile();
-            fileField.setText(selectedFile.getAbsolutePath());
+            fileField.setText(selectedFile.getName());
         }
     }
 
@@ -100,13 +100,21 @@ public class SubmissionPage extends JPanel {
         return;
     }
 
+    int confirm = JOptionPane.showConfirmDialog(this, "Submit this file?", "Confirm Submission", JOptionPane.YES_NO_OPTION);
+
+    if(confirm != JOptionPane.YES_OPTION){
+        return; 
+    }
+
     String docType = (String) docTypeDropdown.getSelectedItem();
-    String fileName = selectedFile.getName();
     String filePath = selectedFile.getAbsolutePath();
 
     boolean success = ExcuseSlipDAO.submitSlip(
-            studentId, java.sql.Date.valueOf(java.time.LocalDate.now()), filePath);
-    
+            studentId, 
+            java.sql.Date.valueOf(java.time.LocalDate.now()),
+            docType,
+            filePath
+        );
 
     if (success) {
         JOptionPane.showMessageDialog(this, "File submitted successfully!");

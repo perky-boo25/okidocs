@@ -6,7 +6,8 @@ public class ExcuseSlipDAO {
 
     public static boolean submitSlip(
             int studentId,
-            Date absentDate,
+            Date date,
+            String docType,
             String pdfPath) {
 
         String sql = """
