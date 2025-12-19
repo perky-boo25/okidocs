@@ -3,10 +3,10 @@ package okidocs;
 import java.util.Date;
 
 public class Request {
-    private int requestID;
-    private int studentID; 
-    private Date dateRequested;
-    private String status;
+    private final int requestID;
+    private final int studentID; 
+    private final Date dateRequested;
+    private final String status;
 
     public Request(int requestID, int studentID, Date dateRequested, String status) {
         this.requestID = requestID;
