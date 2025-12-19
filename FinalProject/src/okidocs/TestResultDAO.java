@@ -9,7 +9,7 @@ public class TestResultDAO {
     public static boolean hasResults(int studentId) {
 
         String sql = """
-            SELECT test_id
+            SELECT 1
             FROM test_results
             WHERE student_id = ?
         """;
@@ -32,7 +32,8 @@ public class TestResultDAO {
         List<MedicalResult> list = new ArrayList<>();
 
         String sql = """
-            SELECT test_type, result, date_released
+            SELECT test_name, category, result_value,
+                   normal_range, remarks, date_released, dr_remark
             FROM test_results
             WHERE student_id = ?
         """;
@@ -45,9 +46,13 @@ public class TestResultDAO {
 
             while (rs.next()) {
                 list.add(new MedicalResult(
-                    rs.getString("test_type"),
-                    rs.getString("result"),
-                    rs.getDate("date_released")
+                        rs.getString("test_name"),
+                        rs.getString("category"),
+                        rs.getString("result_value"),
+                        rs.getString("normal_range"),
+                        rs.getString("remarks"),
+                        rs.getDate("date_released"),
+                        rs.getString("dr_remark")
                 ));
             }
 
