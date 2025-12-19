@@ -71,18 +71,24 @@ public class SignUpPanel extends JPanel {
     //ADDED FUNCTION
     private boolean registerUser(String name, String studentNum, String password) {
 
-        // TODO: Add MySQL insert query or validation here
-        // Example:
-        // return Database.createUser(name, studentNum, password);
-
-        // TEMPORARY LOGIC FOR NOW:
-        if (name.isEmpty() || studentNum.isEmpty() || password.isEmpty()) {
-            return false;
-        }
-
-        // Accept all non-empty signups for now
-        return true;
+    if (name.isEmpty() || studentNum.isEmpty() || password.isEmpty()) {
+        return false;
     }
+
+    try {
+        int studentId = Integer.parseInt(studentNum);
+
+        return StudentDAO.register(
+                studentId,
+                name,
+                password
+        );
+
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
+
 
 
     private JTextField createInputField(String title) {
