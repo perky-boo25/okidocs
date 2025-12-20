@@ -47,21 +47,21 @@ public class LoginPanel extends JPanel {
                 return;
             }
 
-            if (StudentDAO.validateLogin(studentId, password)) {
+            if (FakeAuthService.login(studentId, password)) {
 
-                // 🔐 SAVE SESSION
                 Session.setStudentId(studentId);
 
-                JOptionPane.showMessageDialog(this, "Login successful!");
+                JOptionPane.showMessageDialog(this, "Login successful (TEMP MODE)");
                 app.showHomePage();
 
             } else {
                 JOptionPane.showMessageDialog(this,
-                    "Invalid student number or password.",
-                    "Login Failed",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    });
+                "Invalid student number or password.",
+                "Login Failed",
+                JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
 
 
         goToSignup.addActionListener(e -> app.showSignUpPage());

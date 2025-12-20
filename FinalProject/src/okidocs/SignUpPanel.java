@@ -30,7 +30,7 @@ public class SignUpPanel extends JPanel {
         JButton backBtn = createLinkButton("Log in");
 
         //CHANGED IT HERE
-       submitBtn.addActionListener(e -> {
+        submitBtn.addActionListener(e -> {
 
             String name = nameField.getText().trim();
             String studentNum = studentNumField.getText().trim();
@@ -41,27 +41,28 @@ public class SignUpPanel extends JPanel {
                 return;
             }
 
-        int studentId;
-        try {
-            studentId = Integer.parseInt(studentNum);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Student number must be numeric.");
-            return;
-        }
+            int studentId;
+            try {
+                studentId = Integer.parseInt(studentNum);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Student number must be numeric.");
+                return;
+            }
 
-        boolean success = StudentDAO.register(studentId, name, password);
+            boolean success = FakeAuthService.register(studentId, name, password);
 
-        if (success) {
-            JOptionPane.showMessageDialog(this,
-                    "Account created successfully!\nYou may now log in.");
-            app.showLoginPage();
-        } else {
-            JOptionPane.showMessageDialog(this,
-                "Student ID already exists.",
-                "Sign-up Failed",
-                JOptionPane.ERROR_MESSAGE);
-    }
-});
+            if (success) {
+                JOptionPane.showMessageDialog(this,
+                        "Account created (TEMP MODE).\nYou may now log in.");
+                app.showLoginPage();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Student ID already exists.",
+                        "Sign-up Failed",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
 
 
         backBtn.addActionListener(e -> app.showLoginPage());
